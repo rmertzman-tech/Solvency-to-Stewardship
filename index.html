@@ -1,47 +1,473 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1, viewport-fit=cover"
-  />
-  <title>FAIM-QIRF Demo • Ethics & Epistemic Justice</title>
-  <meta name="color-scheme" content="light only" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
-    rel="stylesheet"
-  >
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    html, body { height: 100%; }
-    body { font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
-    .chip { @apply text-xs px-2 py-1 rounded-full bg-gray-100; }
-  </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Solvency → Stewardship (FAIM-QIRF)</title>
+<style>
+:root{
+  --bg:#0f172a; --panel:#111827; --ink:#e5e7eb; --muted:#94a3b8; --accent:#22c55e; --accent2:#38bdf8; --warn:#f59e0b; --bad:#ef4444; --ok:#10b981;
+  --card:#0b1220; --chip:#1f2937; --line:#1f2937;
+}
+*{box-sizing:border-box} html,body{margin:0;height:100%;font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;color:var(--ink);background:linear-gradient(180deg,#0b1220,#0a0f1a 60%,#080c14)}
+.container{max-width:1100px;margin:0 auto;padding:24px}
+h1{font-size:1.6rem;margin:0 0 10px} h2{font-size:1.1rem;margin:20px 0 8px}
+small, .hint{color:var(--muted)}
+.grid{display:grid;gap:16px}
+.lg-2{grid-template-columns:1fr 1fr} .lg-3{grid-template-columns:repeat(3,1fr)}
+@media(max-width:980px){.lg-2,.lg-3{grid-template-columns:1fr}}
+.card{background:linear-gradient(180deg,#0c1627 0%, #0a1320 100%);border:1px solid var(--line);border-radius:14px;padding:16px;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+label{display:block;font-size:.9rem;margin-top:10px}
+input,select,textarea{width:100%;padding:10px 12px;border-radius:10px;border:1px solid #1f2937;background:#0b1220;color:var(--ink)}
+input[type="range"]{accent-color:var(--accent)}
+.kpi{display:flex;gap:14px;flex-wrap:wrap}
+.kpi .box{flex:1;min-width:140px;background:#0b1220;border:1px solid #1f2937;border-radius:12px;padding:10px}
+.badge{display:inline-block;padding:4px 8px;border-radius:999px;background:#0b1220;border:1px solid #1f2937;color:var(--muted);font-size:.8rem}
+.btn{cursor:pointer;border:1px solid #1f2937;background:#0b1220;color:var(--ink);padding:10px 12px;border-radius:10px}
+.btn.primary{background:linear-gradient(90deg,#059669,#10b981);border-color:#0d503d}
+.btn.ghost{background:transparent;border:1px dashed #334155}
+.btn.warn{background:linear-gradient(90deg,#f59e0b,#f97316);border-color:#a8550a}
+.btn.small{padding:6px 8px;font-size:.85rem}
+hr{border:none;border-top:1px solid #1f2937;margin:14px 0}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{background:var(--chip);border:1px solid #334155;color:#cbd5e1;padding:6px 10px;border-radius:999px;font-size:.8rem}
+.ok{color:var(--ok)} .warnTxt{color:var(--warn)} .bad{color:var(--bad)}
+footer{opacity:.7;margin-top:18px}
+pre{white-space:pre-wrap;word-break:break-word}
+table{width:100%;border-collapse:collapse}
+td,th{border-bottom:1px solid #1f2937;padding:8px;text-align:left}
+.progress{height:10px;background:#0b1220;border:1px solid #1f2937;border-radius:999px;overflow:hidden}
+.progress>div{height:100%;background:linear-gradient(90deg,#38bdf8,#22c55e)}
+.flex-between{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,"Courier New",monospace}
+blockquote{border-left:3px solid #334155;margin:10px 0;padding:6px 10px;color:#cbd5e1;background:#0b1220;border-radius:8px}
+</style>
 </head>
-<body class="bg-gray-50">
-  <header class="bg-gradient-to-r from-purple-600 to-indigo-600 text-white">
-    <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
-      <a href="#/home" class="font-bold text-lg">FAIM-QIRF • Demo</a>
-      <nav class="flex gap-3 text-sm">
-        <a class="hover:underline" href="#/playground">Playground</a>
-        <a class="hover:underline" href="#/philosophers">Philosophers</a>
-        <a class="hover:underline" href="#/labs">Injustice Labs</a>
-        <a class="hover:underline" href="#/repair">Repair</a>
-        <a class="hover:underline" href="#/about">About</a>
-      </nav>
+<body>
+<div class="container">
+  <header class="card">
+    <div class="flex-between">
+      <div>
+        <h1>Solvency → Stewardship (FAIM-QIRF)</h1>
+        <div class="hint">A hands-on mini-lab: build solvency, then align money & time with your values and community. <span class="badge">No tracking, no cookies. Export/Import to save.</span></div>
+      </div>
+      <div class="row">
+        <button id="btnDemoYA" class="btn small">Load Demo: Young Adult</button>
+        <button id="btnDemoWP" class="btn small">Load Demo: Working Parent</button>
+        <button id="btnReset" class="btn small ghost">Reset</button>
+      </div>
     </div>
+    <hr/>
+    <p><strong>How to use</strong> (2 min): Set your <em>Stage</em>, add 2–4 <em>Identity Kernel</em> commitments, choose your weekly cash-flow, then enable/adjust the constructors (Pay-Yourself-First, Skill-to-Earnings, Impact Screen). Run the <em>ATCF Audit</em> to get a stage-weighted <em>Q score</em> and log any exceptions (“what changed?”). Export your plan if you want to keep it.</p>
+    <blockquote class="mono">Scales: sliders use 0–3 (low→high) salience for ABCD; ATCF uses 0–100; percentages are explicit. All calculations happen locally in your browser.</blockquote>
   </header>
 
-  <main id="app" class="max-w-7xl mx-auto px-4 py-6"></main>
-
-  <footer class="border-t mt-10">
-    <div class="max-w-7xl mx-auto px-4 py-6 text-xs text-gray-500">
-      Demo is stateless. Use Export/Import to share a configuration. No tracking, no cookies.
+  <section class="grid lg-2">
+    <div class="card">
+      <h2>Profile & Values</h2>
+      <div class="grid lg-2">
+        <div>
+          <label>Stage</label>
+          <select id="stage">
+            <option>Adolescent</option><option selected>Young Adult</option><option>Adult</option><option>Mature</option><option>Elder</option>
+          </select>
+        </div>
+        <div>
+          <label>Identity Kernel (comma-separated)</label>
+          <input id="ik" placeholder="e.g., Keep promises, Pay fairly, Reduce harm"/>
+        </div>
+      </div>
+      <div class="grid lg-2">
+        <div>
+          <label>Roles (SPTS)</label>
+          <input id="roles" placeholder="student, roommate, worker"/>
+        </div>
+        <div>
+          <label>Obligations (SPTS)</label>
+          <input id="oblig" placeholder="rent, care, tuition"/>
+        </div>
+      </div>
+      <label>ABCD Lenses (0–3)</label>
+      <div class="grid lg-2">
+        <div><small>A (Agency) <span id="aAVal" class="badge">2</span></small><input id="aA" type="range" min="0" max="3" value="2"/></div>
+        <div><small>B (Beauty/Awe) <span id="aBVal" class="badge">2</span></small><input id="aB" type="range" min="0" max="3" value="2"/></div>
+        <div><small>C (Context) <span id="aCVal" class="badge">2</span></small><input id="aC" type="range" min="0" max="3" value="2"/></div>
+        <div><small>D (Dynamics) <span id="aDVal" class="badge">2</span></small><input id="aD" type="range" min="0" max="3" value="2"/></div>
+      </div>
+      <hr/>
+      <div class="kpi">
+        <div class="box"><div class="hint">IK count</div><div id="kIK" class="mono">0</div></div>
+        <div class="box"><div class="hint">Roles</div><div id="kRoles" class="mono">0</div></div>
+        <div class="box"><div class="hint">ABCD avg</div><div id="kABCD" class="mono">2.0</div></div>
+      </div>
     </div>
-  </footer>
 
-  <script type="module" src="./app/main.js"></script>
+    <div class="card">
+      <h2>Weekly Cash-Flow (Solvency)</h2>
+      <div class="grid lg-2">
+        <div><label>Income per week ($)</label><input id="inc" type="number" min="0" step="1" value="480"/></div>
+        <div><label>Fixed bills per week ($)</label><input id="fixed" type="number" min="0" step="1" value="260"/></div>
+        <div><label>Variable essentials per week ($)</label><input id="var" type="number" min="0" step="1" value="120"/></div>
+        <div><label>Discretionary per week ($)</label><input id="disc" type="number" min="0" step="1" value="40"/></div>
+      </div>
+      <label class="row" style="justify-content:space-between">Pay-Yourself-First Split <span class="hint">buffer + ethics are taken from income (auto deposit)</span></label>
+      <div class="grid lg-2">
+        <div><small>Buffer % <span id="bufPctVal" class="badge">5%</span></small><input id="bufPct" type="range" min="0" max="30" value="5"/></div>
+        <div><small>Ethics/Mutual Aid % <span id="ethPctVal" class="badge">3%</span></small><input id="ethPct" type="range" min="0" max="20" value="3"/></div>
+      </div>
+      <hr/>
+      <div class="kpi">
+        <div class="box"><div class="hint">14-day forecast</div><div id="kForecast" class="mono"></div></div>
+        <div class="box"><div class="hint">Weekly buffer deposit</div><div id="kBuf" class="mono"></div></div>
+        <div class="box"><div class="hint">Savings to 1-month cushion</div><div><div class="progress"><div id="kCush" style="width:0%"></div></div><small id="kCushTxt" class="hint"></small></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="grid lg-3">
+    <div class="card">
+      <h2>Impact-Screened Purchase</h2>
+      <label>Item / Purpose</label><input id="pItem" placeholder="Laptop repair / commuting bike / winter coat"/>
+      <div class="grid lg-2">
+        <div><label>Budget ($)</label><input id="pBudget" type="number" min="0" value="600"/></div>
+        <div><label>Urgency (0–3)</label><input id="pUrg" type="range" min="0" max="3" value="2"/></div>
+      </div>
+      <label>Compare options</label>
+      <div class="grid lg-2">
+        <div><small>New (durability 0–3)</small><input id="optNew" type="range" min="0" max="3" value="2"/></div>
+        <div><small>Used/Refurb (repairability 0–3)</small><input id="optUsed" type="range" min="0" max="3" value="3"/></div>
+        <div><small>Repair existing (safety/function 0–3)</small><input id="optRepair" type="range" min="0" max="3" value="2"/></div>
+        <div><small>Local impact (0–3)</small><input id="optLocal" type="range" min="0" max="3" value="2"/></div>
+      </div>
+      <div class="row" style="margin-top:8px">
+        <button id="btnScreen" class="btn">Run 3-Track Screen</button>
+        <button id="btnCoolOff" class="btn ghost">Apply 24-hour Cool-Off</button>
+      </div>
+      <hr/>
+      <div id="screenOut" class="mono"></div>
+    </div>
+
+    <div class="card">
+      <h2>Skill → Earnings Pipeline</h2>
+      <label>Target skill</label><input id="skName" placeholder="e.g., Help-desk cert / Basic bookkeeping / EMT-B"/>
+      <div class="grid lg-2">
+        <div><label>Weekly time (hrs)</label><input id="skHrs" type="number" min="0" value="4"/></div>
+        <div><label>Weeks planned</label><input id="skWeeks" type="number" min="1" value="8"/></div>
+      </div>
+      <label>Milestones (one per line)</label>
+      <textarea id="skMs" rows="4" placeholder="Module 1 complete
+Portfolio sample uploaded
+Mock interview scheduled"></textarea>
+      <div class="row" style="margin-top:8px">
+        <button id="btnNextAction" class="btn">Generate Next Action</button>
+        <button id="btnMarkMilestone" class="btn ghost">Mark Milestone Done</button>
+      </div>
+      <hr/>
+      <div id="skOut" class="mono"></div>
+    </div>
+
+    <div class="card">
+      <h2>ATCF Audit (Meta-Constructor)</h2>
+      <div class="grid lg-2">
+        <div><small>IK integrity (0–100)</small><input id="mIK" type="range" min="0" max="100" value="70"/></div>
+        <div><small>Recursive capability (0–100)</small><input id="mRC" type="range" min="0" max="100" value="65"/></div>
+        <div><small>Domain integration (0–100)</small><input id="mDI" type="range" min="0" max="100" value="60"/></div>
+        <div><small>Temporal consistency (0–100)</small><input id="mTC" type="range" min="0" max="100" value="75"/></div>
+      </div>
+      <div class="row" style="margin-top:8px">
+        <button id="btnAudit" class="btn primary">Compute Q</button>
+        <button id="btnLogExc" class="btn ghost">Log Exception</button>
+      </div>
+      <hr/>
+      <div class="kpi">
+        <div class="box"><div class="hint">Q (stage-weighted)</div><div id="kQ" class="mono">—</div></div>
+        <div class="box"><div class="hint">Reading</div><div id="kQRead" class="mono">—</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="grid lg-2">
+    <div class="card">
+      <h2>Change Log (Exceptions & Notes)</h2>
+      <label>“What changed?” (reason for breaking a rule or updating a constructor)</label>
+      <textarea id="excTxt" rows="3" placeholder="E.g., Broke cool-off for urgent laptop repair. Added qualifier: academic tools exempt when deadlines <48h."></textarea>
+      <div class="row" style="margin-top:8px">
+        <button id="btnAddExc" class="btn">Add to Log</button>
+        <button id="btnClearLog" class="btn warn">Clear Log</button>
+      </div>
+      <hr/>
+      <div id="logList" class="mono hint">No entries yet.</div>
+    </div>
+
+    <div class="card">
+      <h2>Export / Import</h2>
+      <div class="row">
+        <button id="btnExport" class="btn">Export JSON</button>
+        <input id="importFile" type="file" accept="application/json" class="btn" />
+      </div>
+      <small class="hint">State is not stored. Export if you want to save; Import to restore later.</small>
+      <hr/>
+      <div class="chips" id="healthChips"></div>
+    </div>
+  </section>
+
+  <footer class="hint">© You. This teaching demo is free to copy for coursework. FAIM-QIRF framing by Robert Mertzman. This file runs anywhere static HTML is allowed (incl. GitHub Pages).</footer>
+</div>
+
+<script>
+const $=sel=>document.querySelector(sel);
+const byId=id=>document.getElementById(id);
+const todayISO=()=>new Date().toISOString().slice(0,10);
+const id=()=>Math.random().toString(36).slice(2,9);
+
+const stageWeights={
+  "Adolescent":{IK:.30,RC:.20,DI:.20,TC:.30},
+  "Young Adult":{IK:.25,RC:.25,DI:.30,TC:.20},
+  "Adult":{IK:.25,RC:.25,DI:.30,TC:.20},
+  "Mature":{IK:.30,RC:.20,DI:.30,TC:.20},
+  "Elder":{IK:.35,RC:.15,DI:.30,TC:.20}
+};
+
+const state={
+  profile:{stage:"Young Adult",IK:[],roles:[],oblig:[],ABCD:{A:2,B:2,C:2,D:2}},
+  money:{inc:480,fixed:260,var:120,disc:40,bufPct:5,ethPct:3,bufferNow:200},
+  pipeline:{name:"",hrs:4,weeks:8,milestones:[],done:[]},
+  audit:{IK:70,RC:65,DI:60,TC:75,Q:null,Qread:""},
+  log:[]
+};
+
+// UI helpers
+function setBadge(id,val){byId(id).textContent=val}
+function chipsHealth(){
+  const solv = forecast().net14 >= 0;
+  const b = weeklyBuffer();
+  const text = [
+    solv?`✅ 14-day forecast positive (+$${forecast().net14})`:`⚠️ 14-day forecast negative ($${forecast().net14})`,
+    b>0?`💾 buffer deposit $${b}/wk`:`— no buffer split`,
+    `🎯 stage: ${state.profile.stage}`
+  ];
+  const el=byId('healthChips'); el.innerHTML='';
+  text.forEach(t=>{const c=document.createElement('div');c.className='chip';c.textContent=t;el.appendChild(c);});
+}
+
+// Profile events
+['stage','ik','roles','oblig','aA','aB','aC','aD'].forEach(id=>{
+  byId(id).addEventListener('input', ()=>{
+    state.profile.stage = byId('stage').value;
+    state.profile.IK = byId('ik').value.split(',').map(s=>s.trim()).filter(Boolean);
+    state.profile.roles = byId('roles').value.split(',').map(s=>s.trim()).filter(Boolean);
+    state.profile.oblig = byId('oblig').value.split(',').map(s=>s.trim()).filter(Boolean);
+    state.profile.ABCD.A = +byId('aA').value; setBadge('aAVal',state.profile.ABCD.A);
+    state.profile.ABCD.B = +byId('aB').value; setBadge('aBVal',state.profile.ABCD.B);
+    state.profile.ABCD.C = +byId('aC').value; setBadge('aCVal',state.profile.ABCD.C);
+    state.profile.ABCD.D = +byId('aD').value; setBadge('aDVal',state.profile.ABCD.D);
+    updateProfileKPIs(); chipsHealth();
+  });
+});
+
+function updateProfileKPIs(){
+  byId('kIK').textContent = state.profile.IK.length;
+  byId('kRoles').textContent = state.profile.roles.length;
+  const abcdAvg = ((state.profile.ABCD.A+state.profile.ABCD.B+state.profile.ABCD.C+state.profile.ABCD.D)/4).toFixed(1);
+  byId('kABCD').textContent = abcdAvg;
+}
+
+// Money events
+['inc','fixed','var','disc','bufPct','ethPct'].forEach(id=>{
+  byId(id).addEventListener('input', ()=>{
+    state.money.inc=+byId('inc').value||0;
+    state.money.fixed=+byId('fixed').value||0;
+    state.money.var=+byId('var').value||0;
+    state.money.disc=+byId('disc').value||0;
+    state.money.bufPct=+byId('bufPct').value||0; setBadge('bufPctVal', state.money.bufPct+'%');
+    state.money.ethPct=+byId('ethPct').value||0; setBadge('ethPctVal', state.money.ethPct+'%');
+    renderMoney();
+    chipsHealth();
+  });
+});
+
+function weeklyBuffer(){ return Math.round(state.money.inc * (state.money.bufPct/100)); }
+function weeklyEthics(){ return Math.round(state.money.inc * (state.money.ethPct/100)); }
+
+function forecast(){
+  const savings = weeklyBuffer()+weeklyEthics();
+  const out = state.money.fixed + state.money.var + state.money.disc + savings;
+  const net = Math.round(state.money.inc - out);
+  return {net, net14: net*2, out, savings};
+}
+
+function renderMoney(){
+  const f=forecast();
+  byId('kForecast').textContent = (f.net14>=0?'+$':'-$')+Math.abs(f.net14);
+  byId('kBuf').textContent = '$'+weeklyBuffer()+'/wk';
+  const monthlyFixed = Math.round((state.money.fixed+state.money.var)*4.3);
+  const target = monthlyFixed; // 1-month cushion baseline
+  const have = state.money.bufferNow;
+  const added = weeklyBuffer()*4.3;
+  const pct = Math.max(0, Math.min(100, Math.round( ( (have+added) / Math.max(1,target) )*100 )));
+  byId('kCush').style.width = pct+'%';
+  byId('kCushTxt').textContent = `${Math.round((have+added))} / ${target} after ~1 month`;
+}
+
+// Purchase Screen
+byId('btnScreen').addEventListener('click', ()=>{
+  const budget=+byId('pBudget').value||0, urg=+byId('pUrg').value||0;
+  const sNew=+byId('optNew').value, sUsed=+byId('optUsed').value, sRep=+byId('optRepair').value, sLocal=+byId('optLocal').value;
+  // 3-Track blend: Text/Data(New), Empirical(Repairability/Used), Lived(Local + Urgency)
+  const T = sNew;
+  const E = Math.max(sUsed,sRep);
+  const L = Math.min(3, sLocal + Math.floor(urg/2)); // urgency nudges lived weight
+  const newScore = (T + Math.max(0,2-urg)) / 2;
+  const usedScore = (E + L)/2;
+  const repairScore = (sRep + L)/2;
+  const best = [['Buy New',newScore],['Buy Used/Refurb',usedScore],['Repair',repairScore]].sort((a,b)=>b[1]-a[1])[0];
+  const warnBudget = (budget < 50 && best[0]!=='Repair');
+  const out = [
+    `Tracks — Text/Data:${T} Empirical:${E} Lived:${L}`,
+    `Scores — New:${newScore.toFixed(2)} Used:${usedScore.toFixed(2)} Repair:${repairScore.toFixed(2)}`,
+    `Recommendation: ${best[0]} ${warnBudget?'(⚠️ check budget)': ''}`,
+    `Rule: favor functionally-equivalent lower-waste option unless safety/function would drop below acceptable.`
+  ].join('\n');
+  byId('screenOut').textContent = out;
+});
+
+byId('btnCoolOff').addEventListener('click', ()=>{
+  const urg=+byId('pUrg').value||0;
+  const applies = urg<3; // do not apply when urgent=3
+  const msg = applies? 'Apply 24-hour cool-off: add to list, revisit tomorrow with same criteria.' : 'Urgency=3 → cool-off bypassed (safety/critical function). Log exception.';
+  byId('screenOut').textContent = (byId('screenOut').textContent? byId('screenOut').textContent+'\n' : '') + msg;
+});
+
+// Pipeline
+byId('btnNextAction').addEventListener('click', ()=>{
+  const name=byId('skName').value||'Skill';
+  const hrs=+byId('skHrs').value||0, weeks=+byId('skWeeks').value||1;
+  const ms=byId('skMs').value.split('\n').map(s=>s.trim()).filter(Boolean);
+  state.pipeline={name,hrs,weeks,milestones:ms,done:state.pipeline.done||[]};
+  const remaining = ms.filter(m=>!state.pipeline.done.includes(m));
+  const next = remaining[0] || 'Define a concrete milestone.';
+  const note = `Next action: block ${hrs}h this week for "${name}". Focus on: ${next}`;
+  byId('skOut').textContent = note;
+});
+
+byId('btnMarkMilestone').addEventListener('click', ()=>{
+  const ms=state.pipeline.milestones||[];
+  const remaining = ms.filter(m=>!state.pipeline.done?.includes(m));
+  if(!remaining.length){ byId('skOut').textContent = 'All milestones done 🎉'; return; }
+  const done = remaining[0];
+  state.pipeline.done = [...(state.pipeline.done||[]), done];
+  byId('skOut').textContent = `Marked done: ${done}\nRemaining: ${ms.filter(m=>!state.pipeline.done.includes(m)).length}`;
+});
+
+// ATCF & Q
+byId('btnAudit').addEventListener('click', ()=>{
+  state.audit.IK=+byId('mIK').value; state.audit.RC=+byId('mRC').value; state.audit.DI=+byId('mDI').value; state.audit.TC=+byId('mTC').value;
+  const w=stageWeights[state.profile.stage]||stageWeights['Young Adult'];
+  const q = (state.audit.IK/100)*w.IK + (state.audit.RC/100)*w.RC + (state.audit.DI/100)*w.DI + (state.audit.TC/100)*w.TC;
+  state.audit.Q = Math.round(q*100)/100;
+  let read='Developing'; if(q>=0.8) read='Strong & Coherent'; else if(q>=0.65) read='Solidifying'; else if(q>=0.5) read='Emerging';
+  state.audit.Qread=read;
+  byId('kQ').textContent = state.audit.Q.toFixed(2);
+  byId('kQRead').textContent = read;
+});
+
+byId('btnLogExc').addEventListener('click', ()=>{ byId('excTxt').focus(); });
+
+// Change Log
+function renderLog(){
+  const el=byId('logList');
+  if(!state.log.length){ el.textContent='No entries yet.'; return; }
+  el.innerHTML='<table><thead><tr><th>Date</th><th>Entry</th></tr></thead><tbody>'+state.log.map(x=>`<tr><td>${x.date}</td><td>${x.text}</td></tr>`).join('')+'</tbody></table>';
+}
+
+byId('btnAddExc').addEventListener('click', ()=>{
+  const t=byId('excTxt').value.trim(); if(!t) return;
+  state.log.unshift({id:id(),date:todayISO(),text:t}); byId('excTxt').value='';
+  renderLog();
+});
+byId('btnClearLog').addEventListener('click', ()=>{
+  if(confirm('Clear all log entries?')){ state.log=[]; renderLog(); }
+});
+
+// Export / Import
+byId('btnExport').addEventListener('click', ()=>{
+  const blob=new Blob([JSON.stringify(state,null,2)],{type:'application/json'});
+  const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=`solvency-stewardship_${todayISO()}.json`; a.click();
+  setTimeout(()=>URL.revokeObjectURL(a.href),500);
+});
+
+byId('importFile').addEventListener('change', (e)=>{
+  const f=e.target.files?.[0]; if(!f) return;
+  const reader=new FileReader();
+  reader.onload=evt=>{
+    try{
+      const obj=JSON.parse(evt.target.result);
+      // shallow-safe load
+      if(obj.profile) state.profile=Object.assign(state.profile,obj.profile);
+      if(obj.money) state.money=Object.assign(state.money,obj.money);
+      if(obj.pipeline) state.pipeline=Object.assign(state.pipeline,obj.pipeline);
+      if(obj.audit) state.audit=Object.assign(state.audit,obj.audit);
+      if(Array.isArray(obj.log)) state.log=obj.log;
+      hydrateUI();
+    }catch(err){ alert('Import failed: '+err.message); }
+  };
+  reader.readAsText(f);
+});
+
+// Demos
+byId('btnDemoYA').addEventListener('click', ()=>{
+  Object.assign(state,{
+    profile:{stage:"Young Adult",IK:["Keep promises","Pay fairly","Reduce harm"],roles:["student","roommate","PT worker"],oblig:["rent","tuition","care"],ABCD:{A:2,B:2,C:2,D:2}},
+    money:{inc:520,fixed:270,var:130,disc:50,bufPct:6,ethPct:3,bufferNow:180},
+    pipeline:{name:"Help-desk cert",hrs:4,weeks:8,milestones:["Module 1","Module 2","Portfolio sample","Mock interview"],done:[]},
+    audit:{IK:72,RC:66,DI:62,TC:78,Q:null,Qread:""},
+    log:[]
+  });
+  hydrateUI();
+});
+byId('btnDemoWP').addEventListener('click', ()=>{
+  Object.assign(state,{
+    profile:{stage:"Adult",IK:["Care for dependents","Honest dealing","Sustainability"],roles:["parent","shift lead"],oblig:["rent","childcare","debt"],ABCD:{A:2,B:2,C:3,D:2}},
+    money:{inc:980,fixed:520,var:220,disc:80,bufPct:8,ethPct:2,bufferNow:600},
+    pipeline:{name:"CNA → LPN path",hrs:5,weeks:10,milestones:["CNA renewal","Pharm basics","Clinic shadow","Application"],done:[]},
+    audit:{IK:78,RC:70,DI:68,TC:80,Q:null,Qread:""},
+    log:[{id:id(),date:todayISO(),text:"Skipped cool-off for child’s inhaler → safety exemption logged."}]
+  });
+  hydrateUI();
+});
+byId('btnReset').addEventListener('click', ()=>{ location.reload(); });
+
+// Hydrate UI from state
+function hydrateUI(){
+  byId('stage').value=state.profile.stage;
+  byId('ik').value=state.profile.IK.join(', ');
+  byId('roles').value=state.profile.roles.join(', ');
+  byId('oblig').value=state.profile.oblig.join(', ');
+  byId('aA').value=state.profile.ABCD.A; setBadge('aAVal',state.profile.ABCD.A);
+  byId('aB').value=state.profile.ABCD.B; setBadge('aBVal',state.profile.ABCD.B);
+  byId('aC').value=state.profile.ABCD.C; setBadge('aCVal',state.profile.ABCD.C);
+  byId('aD').value=state.profile.ABCD.D; setBadge('aDVal',state.profile.ABCD.D);
+
+  byId('inc').value=state.money.inc; byId('fixed').value=state.money.fixed; byId('var').value=state.money.var; byId('disc').value=state.money.disc;
+  byId('bufPct').value=state.money.bufPct; setBadge('bufPctVal',state.money.bufPct+'%');
+  byId('ethPct').value=state.money.ethPct; setBadge('ethPctVal',state.money.ethPct+'%');
+
+  byId('skName').value=state.pipeline.name||''; byId('skHrs').value=state.pipeline.hrs||0; byId('skWeeks').value=state.pipeline.weeks||1;
+  byId('skMs').value=(state.pipeline.milestones||[]).join('\n'); byId('skOut').textContent='';
+
+  byId('mIK').value=state.audit.IK; byId('mRC').value=state.audit.RC; byId('mDI').value=state.audit.DI; byId('mTC').value=state.audit.TC;
+  byId('kQ').textContent = state.audit.Q? state.audit.Q.toFixed(2): '—';
+  byId('kQRead').textContent = state.audit.Qread || '—';
+
+  updateProfileKPIs();
+  renderMoney();
+  renderLog();
+  chipsHealth();
+}
+
+// Init
+hydrateUI();
+</script>
 </body>
 </html>

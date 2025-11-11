@@ -1,473 +1,889 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Solvency → Stewardship (FAIM-QIRF)</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>System Harms & Social Contract Lab — Student Guide + Glossary</title>
 <style>
-:root{
-  --bg:#0f172a; --panel:#111827; --ink:#e5e7eb; --muted:#94a3b8; --accent:#22c55e; --accent2:#38bdf8; --warn:#f59e0b; --bad:#ef4444; --ok:#10b981;
-  --card:#0b1220; --chip:#1f2937; --line:#1f2937;
-}
-*{box-sizing:border-box} html,body{margin:0;height:100%;font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;color:var(--ink);background:linear-gradient(180deg,#0b1220,#0a0f1a 60%,#080c14)}
-.container{max-width:1100px;margin:0 auto;padding:24px}
-h1{font-size:1.6rem;margin:0 0 10px} h2{font-size:1.1rem;margin:20px 0 8px}
-small, .hint{color:var(--muted)}
-.grid{display:grid;gap:16px}
-.lg-2{grid-template-columns:1fr 1fr} .lg-3{grid-template-columns:repeat(3,1fr)}
-@media(max-width:980px){.lg-2,.lg-3{grid-template-columns:1fr}}
-.card{background:linear-gradient(180deg,#0c1627 0%, #0a1320 100%);border:1px solid var(--line);border-radius:14px;padding:16px;box-shadow:0 10px 30px rgba(0,0,0,.25)}
-.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-label{display:block;font-size:.9rem;margin-top:10px}
-input,select,textarea{width:100%;padding:10px 12px;border-radius:10px;border:1px solid #1f2937;background:#0b1220;color:var(--ink)}
-input[type="range"]{accent-color:var(--accent)}
-.kpi{display:flex;gap:14px;flex-wrap:wrap}
-.kpi .box{flex:1;min-width:140px;background:#0b1220;border:1px solid #1f2937;border-radius:12px;padding:10px}
-.badge{display:inline-block;padding:4px 8px;border-radius:999px;background:#0b1220;border:1px solid #1f2937;color:var(--muted);font-size:.8rem}
-.btn{cursor:pointer;border:1px solid #1f2937;background:#0b1220;color:var(--ink);padding:10px 12px;border-radius:10px}
-.btn.primary{background:linear-gradient(90deg,#059669,#10b981);border-color:#0d503d}
-.btn.ghost{background:transparent;border:1px dashed #334155}
-.btn.warn{background:linear-gradient(90deg,#f59e0b,#f97316);border-color:#a8550a}
-.btn.small{padding:6px 8px;font-size:.85rem}
-hr{border:none;border-top:1px solid #1f2937;margin:14px 0}
-.chips{display:flex;gap:8px;flex-wrap:wrap}
-.chip{background:var(--chip);border:1px solid #334155;color:#cbd5e1;padding:6px 10px;border-radius:999px;font-size:.8rem}
-.ok{color:var(--ok)} .warnTxt{color:var(--warn)} .bad{color:var(--bad)}
-footer{opacity:.7;margin-top:18px}
-pre{white-space:pre-wrap;word-break:break-word}
-table{width:100%;border-collapse:collapse}
-td,th{border-bottom:1px solid #1f2937;padding:8px;text-align:left}
-.progress{height:10px;background:#0b1220;border:1px solid #1f2937;border-radius:999px;overflow:hidden}
-.progress>div{height:100%;background:linear-gradient(90deg,#38bdf8,#22c55e)}
-.flex-between{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
-.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,"Courier New",monospace}
-blockquote{border-left:3px solid #334155;margin:10px 0;padding:6px 10px;color:#cbd5e1;background:#0b1220;border-radius:8px}
+  :root{
+    --bg:#f8fafc; --ink:#0f172a; --muted:#475569; --card:#ffffff; --line:#e2e8f0; --chip:#eef2ff;
+    --good:#16a34a; --warn:#b45309; --bad:#b91c1c; --info:#2563eb;
+    --tipbg:#111827; --tipfg:#ffffff;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,Segoe UI,Roboto,Inter,Arial,sans-serif}
+  header,main,footer{max-width:1050px;margin:auto;padding:16px}
+  h1{font-size:1.8rem;margin:.25rem 0 .5rem}
+  h2{font-size:1.35rem;margin:1rem 0 .5rem}
+  h3{font-size:1.05rem;margin:.75rem 0 .5rem;color:var(--muted)}
+  p{color:#0f172a}
+  .muted{color:var(--muted)}
+  .small{font-size:.9rem}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin:12px 0;box-shadow:0 6px 18px rgba(2,6,23,.05)}
+  .row{display:flex;gap:12px;flex-wrap:wrap}
+  .col{flex:1 1 280px}
+  label{display:block;font-weight:600;margin:.5rem 0 .25rem}
+  select, input[type="text"], textarea{
+    width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--ink);
+  }
+  textarea{min-height:96px}
+  .checkbox{display:flex;align-items:flex-start;gap:12px;padding:10px;border:1px solid var(--line);border-radius:12px;background:#fff;margin:8px 0}
+  .checkbox .note{margin-top:2px}
+  .chip{display:inline-block;border:1px solid var(--line);background:var(--chip);padding:4px 8px;border-radius:999px;font-size:.85rem;margin:3px 6px 3px 0}
+  .good{color:#065f46;background:#ecfdf5;border-color:#bbf7d0}
+  .warn{color:#7c2d12;background:#fff7ed;border-color:#fed7aa}
+  .bad{color:#7f1d1d;background:#fef2f2;border-color:#fecaca}
+  .bar{height:10px;border-radius:999px;background:#e5e7eb;position:relative;overflow:hidden}
+  .bar > i{display:block;height:100%;background:linear-gradient(90deg,#22c55e,#f59e0b,#ef4444);width:50%}
+  .kpi{display:flex;align-items:center;justify-content:space-between;margin:.35rem 0}
+  .kpi b{font-weight:700}
+  .badge{display:inline-block;padding:2px 8px;border-radius:8px;border:1px solid var(--line);background:#eef2ff;color:#4338ca;font-size:.8rem;margin-left:8px}
+  .pill{display:inline-block;padding:6px 10px;border-radius:999px;border:1px solid var(--line);background:#f1f5f9;margin:3px 6px 0 0}
+  .controls{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+  button{border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--ink);padding:10px 14px;cursor:pointer}
+  button.primary{background:var(--info);border-color:var(--info);color:#fff}
+  a.btn{display:inline-block;text-decoration:none}
+  .mono{font-family:ui-monospace,Menlo,Consolas,monospace}
+  .hint{font-size:.9rem;color:var(--muted)}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  @media (max-width:820px){ .grid{grid-template-columns:1fr} }
+  details.guide{border:1px dashed var(--line);border-radius:12px;padding:10px;background:#fbfdff}
+  details.guide[open]{background:#f7fafc}
+  details.guide summary{cursor:pointer;font-weight:700}
+  ul.compact li{margin:.25rem 0}
+  .legend{font-size:.85rem;color:var(--muted)}
+
+  /* Cheat sheet layout + print controls */
+  #cheatSheetPage{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px}
+  #cheatSheetPage h2{margin-top:0}
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  @media (max-width:820px){ .two-col{grid-template-columns:1fr} }
+
+  /* Tooltip (popover) */
+  .info {
+    display:inline-flex;align-items:center;justify-content:center;
+    width:18px;height:18px;font-size:12px;line-height:1;
+    border-radius:50%;background:#eef2ff;color:#4338ca;border:1px solid var(--line);
+    margin-left:6px;cursor:pointer;user-select:none;
+  }
+  .info:focus{outline:2px solid #93c5fd;outline-offset:2px}
+  #tooltip {
+    position:fixed;z-index:9999;max-width:320px;min-width:200px;
+    background:var(--tipbg);color:var(--tipfg);border-radius:10px;padding:10px 12px;
+    border:1px solid rgba(255,255,255,.08);box-shadow:0 10px 30px rgba(0,0,0,.25);
+    display:none;font-size:.92rem;
+  }
+  #tooltip h4{margin:.1rem 0 .35rem;font-size:1rem}
+  #tooltip p{margin:.25rem 0 .25rem;color:#e5e7eb}
+  #tooltip .legend{color:#cbd5e1}
+
+  /* PRINT: only print the cheat sheet panel cleanly */
+  @media print{
+    body *{ visibility:hidden !important; }
+    #cheatSheetPage, #cheatSheetPage *{ visibility:visible !important; }
+    #cheatSheetPage{ position:absolute; left:0; top:0; width:100%; border:none !important; box-shadow:none !important; }
+  }
 </style>
 </head>
 <body>
-<div class="container">
-  <header class="card">
-    <div class="flex-between">
+<header class="card">
+  <h1>System Harms &amp; Social Contract Lab <span class="badge">Student-Guide + Glossary</span></h1>
+  <p class="muted small">
+    No logins, no tracking, no cookies. <b>Export</b> your work (JSON) to submit or re-load later.
+    <br>
+    Jump to: <a href="#cheatSection">Cheat Sheet</a> · <a href="#glossary">Glossary</a>
+  </p>
+
+  <!-- Built-in Guide -->
+  <details class="guide" open>
+    <summary>📘 Quick Start & Key Concepts</summary>
+    <div class="row">
+      <div class="col">
+        <h3>Quick Start (5 steps)</h3>
+        <ol class="small">
+          <li><b>Pick a Context</b> (e.g., apparel or electronics).</li>
+          <li><b>Toggle Guardrails</b> (rules of the game) and watch the <i>Impacts</i> move.</li>
+          <li>Read the <b>Capabilities Check</b> to see who gains/loses what.</li>
+          <li>Write a short <b>Memo</b> using the three lenses (Social Contract, Capabilities, Care).</li>
+          <li><b>Export</b> your JSON artifact to submit.</li>
+        </ol>
+        <div class="card small" style="border-style:dashed">
+          <b>Why this is ethical training:</b> You practice <i>objectivity-as-procedure</i>. You make rules explicit, show trade-offs, and justify choices publicly using shared lenses. That’s how pluralistic communities coordinate toward better outcomes.
+        </div>
+      </div>
+      <div class="col">
+        <h3>Key Terms (short, usable)</h3>
+        <ul class="compact small">
+          <li><b>Guardrail</b>: A rule that changes incentives (e.g., living wage, right to repair).</li>
+          <li><b>Impacts</b>: Bars map effects: Workers & Environment → right is better; Cost → left is cheaper.</li>
+          <li><b>Capabilities</b>: Basic functionings protected/expanded (Decent Work, Health & Safety, Education & Skill, Voice & Recognition, Ecological Stability).</li>
+          <li><b>Three Lenses</b>: Social Contract, Capabilities, Care & Proximity.</li>
+        </ul>
+      </div>
+    </div>
+  </details>
+</header>
+
+<main>
+  <!-- Context -->
+  <section class="card">
+    <h2>1) Pick a Context <span class="badge">Start Here</span> <span class="info" data-key="context" aria-label="What is a context?" tabindex="0">i</span></h2>
+    <div class="row">
+      <div class="col">
+        <label for="context">Context <span class="info" data-key="context" aria-label="Context help" tabindex="0">i</span></label>
+        <select id="context"></select>
+      </div>
+      <div class="col">
+        <label for="preset">Quick Preset <span class="info" data-key="preset" aria-label="Preset help" tabindex="0">i</span></label>
+        <select id="preset">
+          <option value="custom">— Start from scratch —</option>
+          <option value="minimal">Minimal Guardrails</option>
+          <option value="robust">Robust Guardrails</option>
+        </select>
+      </div>
+    </div>
+    <p id="ctxDesc" class="hint"></p>
+
+    <details class="guide">
+      <summary>Why the context matters</summary>
+      <p class="small">Different industries concentrate different risks. Apparel is labor-intensive with hidden overtime; electronics concentrates e-waste and mining harms; gig work shifts risk to workers; housing can destabilize students; coffee links farm prices to deforestation. Choosing the context focuses your ethical analysis.</p>
+    </details>
+  </section>
+
+  <!-- Guardrails -->
+  <section class="card">
+    <h2>2) Toggle Guardrails <span class="badge">Rules of the Game</span> <span class="info" data-key="guardrails" aria-label="What are guardrails?" tabindex="0">i</span></h2>
+    <div id="guardrails"></div>
+    <div class="controls">
+      <button id="clearAll">Clear</button>
+      <button id="selectAll">Select All</button>
+    </div>
+
+    <details class="guide">
+      <summary>How to choose guardrails wisely</summary>
+      <ul class="compact small">
+        <li>Pick a <b>coherent set</b> (don’t chase everything). You’re designing a small “constitution” for this context.</li>
+        <li>Look for <b>complements</b> (e.g., disclosure + voice council) that make each other effective.</li>
+        <li>Accept <b>trade-offs</b>: sometimes fairness costs a little more; sometimes repairability saves money over time.</li>
+      </ul>
+    </details>
+  </section>
+
+  <!-- Impacts -->
+  <section class="card">
+    <h2>3) Predicted Impacts <span class="badge">Visualize Trade-offs</span> <span class="info" data-key="impacts" aria-label="What are impacts?" tabindex="0">i</span></h2>
+    <div class="grid">
       <div>
-        <h1>Solvency → Stewardship (FAIM-QIRF)</h1>
-        <div class="hint">A hands-on mini-lab: build solvency, then align money & time with your values and community. <span class="badge">No tracking, no cookies. Export/Import to save.</span></div>
-      </div>
-      <div class="row">
-        <button id="btnDemoYA" class="btn small">Load Demo: Young Adult</button>
-        <button id="btnDemoWP" class="btn small">Load Demo: Working Parent</button>
-        <button id="btnReset" class="btn small ghost">Reset</button>
-      </div>
-    </div>
-    <hr/>
-    <p><strong>How to use</strong> (2 min): Set your <em>Stage</em>, add 2–4 <em>Identity Kernel</em> commitments, choose your weekly cash-flow, then enable/adjust the constructors (Pay-Yourself-First, Skill-to-Earnings, Impact Screen). Run the <em>ATCF Audit</em> to get a stage-weighted <em>Q score</em> and log any exceptions (“what changed?”). Export your plan if you want to keep it.</p>
-    <blockquote class="mono">Scales: sliders use 0–3 (low→high) salience for ABCD; ATCF uses 0–100; percentages are explicit. All calculations happen locally in your browser.</blockquote>
-  </header>
+        <h3>Aggregate Effects</h3>
+        <div class="kpi"><span>Workers (dignity, safety) <span class="info" data-key="workers" aria-label="Workers impact help" tabindex="0">i</span></span><b id="k_workers">—</b></div>
+        <div class="bar"><i id="bar_workers" style="width:50%"></i></div>
 
-  <section class="grid lg-2">
-    <div class="card">
-      <h2>Profile & Values</h2>
-      <div class="grid lg-2">
-        <div>
-          <label>Stage</label>
-          <select id="stage">
-            <option>Adolescent</option><option selected>Young Adult</option><option>Adult</option><option>Mature</option><option>Elder</option>
-          </select>
-        </div>
-        <div>
-          <label>Identity Kernel (comma-separated)</label>
-          <input id="ik" placeholder="e.g., Keep promises, Pay fairly, Reduce harm"/>
-        </div>
-      </div>
-      <div class="grid lg-2">
-        <div>
-          <label>Roles (SPTS)</label>
-          <input id="roles" placeholder="student, roommate, worker"/>
-        </div>
-        <div>
-          <label>Obligations (SPTS)</label>
-          <input id="oblig" placeholder="rent, care, tuition"/>
-        </div>
-      </div>
-      <label>ABCD Lenses (0–3)</label>
-      <div class="grid lg-2">
-        <div><small>A (Agency) <span id="aAVal" class="badge">2</span></small><input id="aA" type="range" min="0" max="3" value="2"/></div>
-        <div><small>B (Beauty/Awe) <span id="aBVal" class="badge">2</span></small><input id="aB" type="range" min="0" max="3" value="2"/></div>
-        <div><small>C (Context) <span id="aCVal" class="badge">2</span></small><input id="aC" type="range" min="0" max="3" value="2"/></div>
-        <div><small>D (Dynamics) <span id="aDVal" class="badge">2</span></small><input id="aD" type="range" min="0" max="3" value="2"/></div>
-      </div>
-      <hr/>
-      <div class="kpi">
-        <div class="box"><div class="hint">IK count</div><div id="kIK" class="mono">0</div></div>
-        <div class="box"><div class="hint">Roles</div><div id="kRoles" class="mono">0</div></div>
-        <div class="box"><div class="hint">ABCD avg</div><div id="kABCD" class="mono">2.0</div></div>
-      </div>
-    </div>
+        <div class="kpi"><span>Environment (footprint, waste) <span class="info" data-key="environment" aria-label="Environment impact help" tabindex="0">i</span></span><b id="k_env">—</b></div>
+        <div class="bar"><i id="bar_env" style="width:50%"></i></div>
 
-    <div class="card">
-      <h2>Weekly Cash-Flow (Solvency)</h2>
-      <div class="grid lg-2">
-        <div><label>Income per week ($)</label><input id="inc" type="number" min="0" step="1" value="480"/></div>
-        <div><label>Fixed bills per week ($)</label><input id="fixed" type="number" min="0" step="1" value="260"/></div>
-        <div><label>Variable essentials per week ($)</label><input id="var" type="number" min="0" step="1" value="120"/></div>
-        <div><label>Discretionary per week ($)</label><input id="disc" type="number" min="0" step="1" value="40"/></div>
+        <div class="kpi"><span>Consumer Cost (you pay) <span class="info" data-key="cost" aria-label="Cost impact help" tabindex="0">i</span></span><b id="k_cost">—</b></div>
+        <div class="bar"><i id="bar_cost" style="width:50%"></i></div>
+
+        <p class="hint">Workers & Environment: farther right is better. Cost: farther left is cheaper.</p>
       </div>
-      <label class="row" style="justify-content:space-between">Pay-Yourself-First Split <span class="hint">buffer + ethics are taken from income (auto deposit)</span></label>
-      <div class="grid lg-2">
-        <div><small>Buffer % <span id="bufPctVal" class="badge">5%</span></small><input id="bufPct" type="range" min="0" max="30" value="5"/></div>
-        <div><small>Ethics/Mutual Aid % <span id="ethPctVal" class="badge">3%</span></small><input id="ethPct" type="range" min="0" max="20" value="3"/></div>
-      </div>
-      <hr/>
-      <div class="kpi">
-        <div class="box"><div class="hint">14-day forecast</div><div id="kForecast" class="mono"></div></div>
-        <div class="box"><div class="hint">Weekly buffer deposit</div><div id="kBuf" class="mono"></div></div>
-        <div class="box"><div class="hint">Savings to 1-month cushion</div><div><div class="progress"><div id="kCush" style="width:0%"></div></div><small id="kCushTxt" class="hint"></small></div></div>
+      <div>
+        <h3>Capabilities Check (who gains what) <span class="info" data-key="capabilities" aria-label="Capabilities help" tabindex="0">i</span></h3>
+        <div id="caps"></div>
+        <p class="hint">These summarize basic functionings impacted by your chosen guardrails.</p>
       </div>
     </div>
   </section>
 
-  <section class="grid lg-3">
-    <div class="card">
-      <h2>Impact-Screened Purchase</h2>
-      <label>Item / Purpose</label><input id="pItem" placeholder="Laptop repair / commuting bike / winter coat"/>
-      <div class="grid lg-2">
-        <div><label>Budget ($)</label><input id="pBudget" type="number" min="0" value="600"/></div>
-        <div><label>Urgency (0–3)</label><input id="pUrg" type="range" min="0" max="3" value="2"/></div>
+  <!-- Lenses -->
+  <section class="card">
+    <h2>4) Write Your Memo <span class="badge">Three Lenses</span> <span class="info" data-key="memo" aria-label="Memo help" tabindex="0">i</span></h2>
+    <div class="grid">
+      <div>
+        <label for="memo_sc">Social Contract <span class="info" data-key="social_contract" aria-label="Social Contract help" tabindex="0">i</span></label>
+        <textarea id="memo_sc" placeholder="Who benefits, who bears costs? Would this be acceptable if you didn’t know your position?"></textarea>
+        <p class="hint small">Ask: is this rule set fair to anyone who could end up a worker, consumer, or neighbor?</p>
       </div>
-      <label>Compare options</label>
-      <div class="grid lg-2">
-        <div><small>New (durability 0–3)</small><input id="optNew" type="range" min="0" max="3" value="2"/></div>
-        <div><small>Used/Refurb (repairability 0–3)</small><input id="optUsed" type="range" min="0" max="3" value="3"/></div>
-        <div><small>Repair existing (safety/function 0–3)</small><input id="optRepair" type="range" min="0" max="3" value="2"/></div>
-        <div><small>Local impact (0–3)</small><input id="optLocal" type="range" min="0" max="3" value="2"/></div>
+      <div>
+        <label for="memo_cap">Capabilities <span class="info" data-key="capabilities" aria-label="Capabilities help" tabindex="0">i</span></label>
+        <textarea id="memo_cap" placeholder="Which basic capabilities are raised or risked—and for whom?"></textarea>
+        <p class="hint small">Name 1–2 capabilities improved and any risks that remain; propose how to mitigate them.</p>
       </div>
-      <div class="row" style="margin-top:8px">
-        <button id="btnScreen" class="btn">Run 3-Track Screen</button>
-        <button id="btnCoolOff" class="btn ghost">Apply 24-hour Cool-Off</button>
-      </div>
-      <hr/>
-      <div id="screenOut" class="mono"></div>
+    </div>
+    <label for="memo_care" style="margin-top:.5rem">Care & Proximity <span class="info" data-key="care" aria-label="Care & Proximity help" tabindex="0">i</span></label>
+    <textarea id="memo_care" placeholder="Who is relationally near (roommates, classmates, local workers)? What obligations arise from proximity/dependence? What will you do this month?"></textarea>
+    <div class="controls">
+      <button id="fillTemplate">Insert Template</button>
+      <span class="hint">You can edit the template after inserting it.</span>
+    </div>
+  </section>
+
+  <!-- Export / Import -->
+  <section class="card">
+    <h2>Export / Import <span class="badge">No Account Needed</span> <span class="info" data-key="export" aria-label="Export/Import help" tabindex="0">i</span></h2>
+    <p class="muted small">Export your artifact for grading or to import later. Nothing is stored here.</p>
+    <textarea id="out" class="mono" rows="10" spellcheck="false" aria-label="Exported JSON"></textarea>
+    <div class="controls">
+      <button class="primary" id="copyBtn">Copy</button>
+      <a id="dl" class="btn" download="system-harms-lab.json">Download</a>
+    </div>
+    <textarea id="inp" class="mono" rows="6" placeholder="Paste JSON here to load" spellcheck="false" aria-label="Import JSON"></textarea>
+    <div class="controls">
+      <button id="loadBtn">Load</button>
+      <button id="resetBtn">Reset</button>
+    </div>
+  </section>
+
+  <!-- Cheat Sheet (Printable) -->
+  <section class="card" id="cheatSection">
+    <h2>One-Page Cheat Sheet <span class="badge">Printable</span> <span class="info" data-key="cheat" aria-label="Cheat sheet help" tabindex="0">i</span></h2>
+    <p class="muted small">Use this during class. Click <b>Print Cheat Sheet</b> to print or save as PDF, or <b>Save as PDF</b> for a clean PDF tab.</p>
+    <div class="controls">
+      <button id="printCheatBtn">Print Cheat Sheet</button>
+      <button id="pdfCheatBtn">Save Cheat Sheet as PDF</button>
     </div>
 
-    <div class="card">
-      <h2>Skill → Earnings Pipeline</h2>
-      <label>Target skill</label><input id="skName" placeholder="e.g., Help-desk cert / Basic bookkeeping / EMT-B"/>
-      <div class="grid lg-2">
-        <div><label>Weekly time (hrs)</label><input id="skHrs" type="number" min="0" value="4"/></div>
-        <div><label>Weeks planned</label><input id="skWeeks" type="number" min="1" value="8"/></div>
-      </div>
-      <label>Milestones (one per line)</label>
-      <textarea id="skMs" rows="4" placeholder="Module 1 complete
-Portfolio sample uploaded
-Mock interview scheduled"></textarea>
-      <div class="row" style="margin-top:8px">
-        <button id="btnNextAction" class="btn">Generate Next Action</button>
-        <button id="btnMarkMilestone" class="btn ghost">Mark Milestone Done</button>
-      </div>
-      <hr/>
-      <div id="skOut" class="mono"></div>
-    </div>
+    <div id="cheatSheetPage">
+      <h2 style="margin-bottom:.25rem">System Harms & Social Contract — Cheat Sheet</h2>
+      <p class="small" style="margin-top:0;color:#334155">Quick guide to run a mini-analysis and justify your choice.</p>
+      <div class="two-col">
+        <div>
+          <h3>Steps</h3>
+          <ol class="small" style="margin-top:.25rem">
+            <li><b>Pick a context</b> (Apparel / Electronics / Gig / Housing / Coffee).</li>
+            <li><b>Select guardrails</b> (2–4 coherent rules).</li>
+            <li><b>Read impacts</b> (Workers/Environment/Cost bars; Capabilities pills).</li>
+            <li><b>Write memo</b> with 3 lenses:
+              <ul class="compact">
+                <li><b>Social Contract</b>: Could this be fair behind a veil of ignorance?</li>
+                <li><b>Capabilities</b>: Which basic functionings improve? Who still at risk?</li>
+                <li><b>Care</b>: What near-term action will you take?</li>
+              </ul>
+            </li>
+            <li><b>Export</b> JSON artifact and submit.</li>
+          </ol>
 
-    <div class="card">
-      <h2>ATCF Audit (Meta-Constructor)</h2>
-      <div class="grid lg-2">
-        <div><small>IK integrity (0–100)</small><input id="mIK" type="range" min="0" max="100" value="70"/></div>
-        <div><small>Recursive capability (0–100)</small><input id="mRC" type="range" min="0" max="100" value="65"/></div>
-        <div><small>Domain integration (0–100)</small><input id="mDI" type="range" min="0" max="100" value="60"/></div>
-        <div><small>Temporal consistency (0–100)</small><input id="mTC" type="range" min="0" max="100" value="75"/></div>
-      </div>
-      <div class="row" style="margin-top:8px">
-        <button id="btnAudit" class="btn primary">Compute Q</button>
-        <button id="btnLogExc" class="btn ghost">Log Exception</button>
-      </div>
-      <hr/>
-      <div class="kpi">
-        <div class="box"><div class="hint">Q (stage-weighted)</div><div id="kQ" class="mono">—</div></div>
-        <div class="box"><div class="hint">Reading</div><div id="kQRead" class="mono">—</div></div>
+          <h3>Bars & Pills</h3>
+          <ul class="compact small">
+            <li><b>Workers</b> (→ right better), <b>Environment</b> (→ right better), <b>Cost</b> (← left cheaper).</li>
+            <li><b>Capabilities</b> pills show who gains: Decent Work, Health & Safety, Education & Skill, Voice & Recognition, Ecological Stability.</li>
+          </ul>
+
+          <h3>Common Guardrail Pairs</h3>
+          <ul class="compact small">
+            <li>Disclosure + Voice Council (traceable harms + a place to fix rules).</li>
+            <li>Right to Repair + Repairability Score (longer device life + market pressure).</li>
+            <li>Safety Inspections + Rent Stabilization (housing dignity + stability).</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Memo Template</h3>
+          <div class="card small" style="padding:10px;border-style:dashed">
+            <b>Context:</b> _____. <b>Guardrails:</b> _____.<br>
+            <b>Social Contract:</b> Acceptable if positions unknown because _____.<br>
+            <b>Capabilities:</b> Improves _____; remaining risk _____; mitigation _____.<br>
+            <b>Care:</b> Near-term action this month: _____.
+          </div>
+
+          <h3>Grading Snapshot</h3>
+          <ul class="compact small">
+            <li><b>Clarity (25%)</b> — Why these guardrails?</li>
+            <li><b>Trade-offs (25%)</b> — Read bars honestly.</li>
+            <li><b>Capabilities (25%)</b> — Who gains/loses; mitigation.</li>
+            <li><b>Action (15%)</b> — A concrete next step.</li>
+            <li><b>Professionalism (10%)</b> — Clean memo + JSON.</li>
+          </ul>
+
+          <h3>Ethical Rationale</h3>
+          <ul class="compact small">
+            <li><b>Objectivity as procedure:</b> explicit rules + visible effects.</li>
+            <li><b>Pluralism by design:</b> different rule sets can be functionally equivalent.</li>
+            <li><b>Epistemic justice:</b> include lived impacts via voice/repair/disclosure.</li>
+          </ul>
+        </div>
       </div>
     </div>
   </section>
 
-  <section class="grid lg-2">
-    <div class="card">
-      <h2>Change Log (Exceptions & Notes)</h2>
-      <label>“What changed?” (reason for breaking a rule or updating a constructor)</label>
-      <textarea id="excTxt" rows="3" placeholder="E.g., Broke cool-off for urgent laptop repair. Added qualifier: academic tools exempt when deadlines <48h."></textarea>
-      <div class="row" style="margin-top:8px">
-        <button id="btnAddExc" class="btn">Add to Log</button>
-        <button id="btnClearLog" class="btn warn">Clear Log</button>
-      </div>
-      <hr/>
-      <div id="logList" class="mono hint">No entries yet.</div>
-    </div>
+  <!-- Glossary -->
+  <section class="card" id="glossary">
+    <h2>Glossary <span class="badge">PRF · SPTS · OS1 · OS2</span> <span class="info" data-key="glossary" aria-label="Glossary help" tabindex="0">i</span></h2>
+    <div class="grid">
+      <div>
+        <h3>Core FAIM-QIRF Terms</h3>
+        <dl class="small">
+          <dt><b>PRF — Phenomenal Reference Frame</b> <span class="info" data-key="PRF" aria-label="PRF help" tabindex="0">i</span></dt>
+          <dd>Your current internal model (identity kernel, filters, lexicon, goals, learned expectations, standpoint) that generates what is visible/legible now. PRF produces your OS1 experience and constrains which OS2 procedures feel legitimate.</dd>
 
-    <div class="card">
-      <h2>Export / Import</h2>
-      <div class="row">
-        <button id="btnExport" class="btn">Export JSON</button>
-        <input id="importFile" type="file" accept="application/json" class="btn" />
+          <dt><b>SPTS — Standpoint Set</b> <span class="info" data-key="SPTS" aria-label="SPTS help" tabindex="0">i</span></dt>
+          <dd>Your relatively stable social/positional roles (e.g., student, caregiver, worker) that bias default gates (voice, standing) and evidence weights. Slow-changing compared to moment-to-moment perspectives.</dd>
+
+          <dt><b>OS1 — Phenomenal Experience Layer</b> <span class="info" data-key="OS1" aria-label="OS1 help" tabindex="0">i</span></dt>
+          <dd>The lived, first-person field: what you notice as salient, how it feels, what seems obvious. Shaped by PRF and current task/context.</dd>
+
+          <dt><b>OS2 — Procedural/Constructor Layer</b> <span class="info" data-key="OS2" aria-label="OS2 help" tabindex="0">i</span></dt>
+          <dd>Capabilities and constructors: explicit rules, warrants, audits, and change-logs you can show, test, and improve with others. OS2 can revise PRF over time.</dd>
+
+          <dt><b>IK — Identity Kernel</b> <span class="info" data-key="IK" aria-label="IK help" tabindex="0">i</span></dt>
+          <dd>Your 2–4 non-negotiable commitments (e.g., “no exploitation,” “tell the truth”).</dd>
+
+          <dt><b>BROA+</b> <span class="info" data-key="BROA" aria-label="BROA help" tabindex="0">i</span></dt>
+          <dd>Beliefs, Rules, Ontology, Authenticity: filters that shape interpretation and action.</dd>
+
+          <dt><b>Capabilities</b> <span class="info" data-key="capabilities" aria-label="Capabilities help" tabindex="0">i</span></dt>
+          <dd>Reliable methods you can execute (e.g., weekly cash-flow review, impact screen).</dd>
+
+          <dt><b>Constructors</b> <span class="info" data-key="constructor" aria-label="Constructor help" tabindex="0">i</span></dt>
+          <dd>Persistent procedures with triggers, inputs, outputs, and review (e.g., right-to-repair purchase policy with a monthly audit).</dd>
+
+          <dt><b>Meta-Constructors</b> <span class="info" data-key="meta_constructor" aria-label="Meta-Constructor help" tabindex="0">i</span></dt>
+          <dd>Learning loops that evaluate/improve constructors on a schedule (e.g., monthly rubric + “what changed?” memo).</dd>
+
+          <dt><b>ATCF mini</b> <span class="info" data-key="ATCF" aria-label="ATCF help" tabindex="0">i</span></dt>
+          <dd>Rubric across Identity Kernel alignment (IK), Recognition (RC), Diversity Inclusion (DI), Temporal Coherence (TC) to track procedural quality over time.</dd>
+        </dl>
       </div>
-      <small class="hint">State is not stored. Export if you want to save; Import to restore later.</small>
-      <hr/>
-      <div class="chips" id="healthChips"></div>
+      <div>
+        <h3>How They Connect Here</h3>
+        <ul class="small">
+          <li><b>PRF → OS1:</b> Shapes what harms/benefits you notice in a context.</li>
+          <li><b>OS2:</b> You choose guardrails, read effects, and write a memo (procedural justification).</li>
+          <li><b>Pluralism by design:</b> Different PRFs can still coordinate if their chosen guardrails are <i>functionally equivalent</i> toward overlapping goods.</li>
+          <li><b>Change over time:</b> Using the lab repeatedly updates your PRF (you notice new harms/benefits), and your constructors get sharper via meta-review.</li>
+        </ul>
+
+        <h3>Scales You’ll See</h3>
+        <ul class="small">
+          <li><b>Impact bars:</b> −5 (worse) … 0 (no change) … +5 (better) for Workers/Environment; Cost uses the same range but “better” is cheaper (left).</li>
+          <li><b>Capabilities pills:</b> Show net direction and strength for basic functionings affected by your chosen guardrails.</li>
+        </ul>
+      </div>
     </div>
   </section>
+</main>
 
-  <footer class="hint">© You. This teaching demo is free to copy for coursework. FAIM-QIRF framing by Robert Mertzman. This file runs anywhere static HTML is allowed (incl. GitHub Pages).</footer>
-</div>
+<footer class="card">
+  <h3>Why this matters</h3>
+  <p class="small">
+    Living ethically in a market society means designing the <b>rules</b> you will support (with your purchases, votes, and voice), showing the
+    <b>trade-offs</b> honestly, and taking <b>practical steps</b> that align with your deepest commitments. This lab helps you practice that.
+  </p>
+</footer>
+
+<!-- Single tooltip node -->
+<div id="tooltip" role="dialog" aria-hidden="true"></div>
 
 <script>
-const $=sel=>document.querySelector(sel);
-const byId=id=>document.getElementById(id);
-const todayISO=()=>new Date().toISOString().slice(0,10);
-const id=()=>Math.random().toString(36).slice(2,9);
+/* --------------------------
+   DATA MODEL
+-------------------------- */
 
-const stageWeights={
-  "Adolescent":{IK:.30,RC:.20,DI:.20,TC:.30},
-  "Young Adult":{IK:.25,RC:.25,DI:.30,TC:.20},
-  "Adult":{IK:.25,RC:.25,DI:.30,TC:.20},
-  "Mature":{IK:.30,RC:.20,DI:.30,TC:.20},
-  "Elder":{IK:.35,RC:.15,DI:.30,TC:.20}
+const CAP_LIST = ["Decent Work","Health & Safety","Education & Skill","Voice & Recognition","Ecological Stability"];
+
+const CONTEXTS = {
+  apparel: {
+    title: "Apparel (T-shirt / hoodie)",
+    desc: "Labor-intensive supply chains; overtime pressure; weak safety oversight; very low unit prices dominate.",
+    baseline: { workers: -2, env: -2, cost: 0 },
+    guardrails: [
+      { id:"living_wage", label:"Living wage requirement",
+        note:"Raises pay and reduces overtime pressure; modest price impact.",
+        vec:{ workers:+3, env:+1, cost:+1 },
+        caps:{ "Decent Work":+3, "Health & Safety":+1, "Voice & Recognition":+1 } },
+      { id:"supply_chain", label:"Supply chain disclosure",
+        note:"Traceability enables real audits; curbs the worst abuses.",
+        vec:{ workers:+2, env:+2, cost:+1 },
+        caps:{ "Decent Work":+2, "Ecological Stability":+2 } },
+      { id:"no_forced_ot", label:"No forced overtime",
+        note:"Prevents coercive scheduling and wage theft via overtime games.",
+        vec:{ workers:+3, env:+0, cost:+1 },
+        caps:{ "Decent Work":+2, "Health & Safety":+1 } },
+      { id:"union_neutrality", label:"Union neutrality",
+        note:"Removes anti-union tactics; improves worker voice and bargaining.",
+        vec:{ workers:+2, env:+0, cost:+1 },
+        caps:{ "Voice & Recognition":+3, "Decent Work":+1 } }
+    ]
+  },
+  electronics: {
+    title: "Electronics (phone / laptop)",
+    desc: "Mining & materials, energy use, and e-waste; repair barriers push premature replacement.",
+    baseline: { workers: -1, env: -2, cost: 0 },
+    guardrails: [
+      { id:"right_to_repair", label:"Right to repair + parts availability",
+        note:"Extends device life; lowers waste; reduces lifetime cost.",
+        vec:{ workers:+1, env:+3, cost:-1 },
+        caps:{ "Ecological Stability":+3, "Education & Skill":+1 } },
+      { id:"ewaste_takeback", label:"E-waste take-back & certified recycling",
+        note:"Cuts toxic leakage and informal dumping harms.",
+        vec:{ workers:+1, env:+3, cost:+0 },
+        caps:{ "Health & Safety":+2, "Ecological Stability":+3 } },
+      { id:"no_conflict_minerals", label:"Conflict-free minerals verification",
+        note:"Reduces financing of violence; improves mine safety.",
+        vec:{ workers:+2, env:+1, cost:+1 },
+        caps:{ "Decent Work":+1, "Health & Safety":+2 } },
+      { id:"repairability_score", label:"Public repairability score",
+        note:"Market pressure for durable, fixable devices.",
+        vec:{ workers:+0, env:+2, cost:+0 },
+        caps:{ "Education & Skill":+1, "Ecological Stability":+2 } }
+    ]
+  },
+  gig: {
+    title: "Gig work (ride-hailing / delivery)",
+    desc: "Scheduling risk shifted to workers; pay variability; safety externalized.",
+    baseline: { workers: -2, env: -1, cost: 0 },
+    guardrails: [
+      { id:"min_floor", label:"Minimum earnings floor (after expenses)",
+        note:"Stabilizes income; curbs race-to-the-bottom pricing.",
+        vec:{ workers:+3, env:+0, cost:+1 },
+        caps:{ "Decent Work":+3 } },
+      { id:"safety_insurance", label:"Company-funded safety & insurance",
+        note:"Covers injuries; raises safety investments.",
+        vec:{ workers:+2, env:+0, cost:+1 },
+        caps:{ "Health & Safety":+3 } },
+      { id:"voice_council", label:"Worker voice council",
+        note:"Institutional channel for grievances and rule updates.",
+        vec:{ workers:+2, env:+0, cost:+0 },
+        caps:{ "Voice & Recognition":+3 } },
+      { id:"green_routing", label:"Eco routing + fleet efficiency",
+        note:"Lowers emissions; may slightly change ETAs.",
+        vec:{ workers:+0, env:+2, cost:+0 },
+        caps:{ "Ecological Stability":+2 } }
+    ]
+  },
+  housing: {
+    title: "Housing (rental market)",
+    desc: "Rent shocks destabilize students; safety enforcement uneven; supply constraints raise prices.",
+    baseline: { workers: -1, env: -1, cost: 0 },
+    guardrails: [
+      { id:"safety_inspect", label:"Regular safety inspections",
+        note:"Prevents slum conditions; reduces health hazards.",
+        vec:{ workers:+2, env:+0, cost:+0 },
+        caps:{ "Health & Safety":+3 } },
+      { id:"rent_stabilize", label:"Rent stabilization & notice period",
+        note:"Smooths rent spikes; reduces displacement.",
+        vec:{ workers:+2, env:+0, cost:-1 },
+        caps:{ "Decent Work":+1, "Health & Safety":+1 } },
+      { id:"inclusionary", label:"Inclusionary zoning (mixed income)",
+        note:"Increases supply & diversity; lowers segregation.",
+        vec:{ workers:+1, env:+1, cost:+0 },
+        caps:{ "Education & Skill":+1, "Voice & Recognition":+1 } },
+      { id:"efficiency_retrofit", label:"Efficiency retrofit incentives",
+        note:"Lowers utility bills & emissions; small upfront costs.",
+        vec:{ workers:+0, env:+2, cost:+0 },
+        caps:{ "Ecological Stability":+2 } }
+    ]
+  },
+  coffee: {
+    title: "Food/Drink (coffee supply chain)",
+    desc: "Farmgate prices volatile; deforestation pressure; certifications vary.",
+    baseline: { workers: -2, env: -2, cost: 0 },
+    guardrails: [
+      { id:"floor_price", label:"Fair trade floor price",
+        note:"Protects farmers in price crashes; small retail premium.",
+        vec:{ workers:+3, env:+0, cost:+1 },
+        caps:{ "Decent Work":+2 } },
+      { id:"no_deforest", label:"No-deforestation verification",
+        note:"Protects biodiversity and carbon sinks.",
+        vec:{ workers:+0, env:+3, cost:+1 },
+        caps:{ "Ecological Stability":+3 } },
+      { id:"coop_support", label:"Co-op / smallholder support",
+        note:"Improves bargaining & local education via co-ops.",
+        vec:{ workers:+2, env:+1, cost:+1 },
+        caps:{ "Voice & Recognition":+2, "Education & Skill":+1 } },
+      { id:"transparent_premium", label:"Transparent premium to producers",
+        note:"Shows how much reaches farmers; pressures middlemen.",
+        vec:{ workers:+2, env:+0, cost:+1 },
+        caps:{ "Voice & Recognition":+1, "Decent Work":+1 } }
+    ]
+  }
 };
 
-const state={
-  profile:{stage:"Young Adult",IK:[],roles:[],oblig:[],ABCD:{A:2,B:2,C:2,D:2}},
-  money:{inc:480,fixed:260,var:120,disc:40,bufPct:5,ethPct:3,bufferNow:200},
-  pipeline:{name:"",hrs:4,weeks:8,milestones:[],done:[]},
-  audit:{IK:70,RC:65,DI:60,TC:75,Q:null,Qread:""},
-  log:[]
+let state = {
+  contextKey: "apparel",
+  selected: new Set(),
+  metrics: { workers: 0, env: 0, cost: 0, caps:{} },
+  memo: { sc:"", cap:"", care:"" }
 };
 
-// UI helpers
-function setBadge(id,val){byId(id).textContent=val}
-function chipsHealth(){
-  const solv = forecast().net14 >= 0;
-  const b = weeklyBuffer();
-  const text = [
-    solv?`✅ 14-day forecast positive (+$${forecast().net14})`:`⚠️ 14-day forecast negative ($${forecast().net14})`,
-    b>0?`💾 buffer deposit $${b}/wk`:`— no buffer split`,
-    `🎯 stage: ${state.profile.stage}`
-  ];
-  const el=byId('healthChips'); el.innerHTML='';
-  text.forEach(t=>{const c=document.createElement('div');c.className='chip';c.textContent=t;el.appendChild(c);});
+/* --------------------------
+   GLOSSARY POPOVER CONTENT
+-------------------------- */
+const GLOSSARY = {
+  context: {
+    title: "Context",
+    body: "The industry or setting you’re analyzing. Different contexts concentrate different harms/benefits, so guardrails that work in one may be irrelevant in another."
+  },
+  preset: {
+    title:"Presets",
+    body:"Quick starting points: Minimal = one high-leverage rule; Robust = all listed rules (maximal protection, higher cost)."
+  },
+  guardrails: {
+    title:"Guardrails",
+    body:"Explicit rules that change incentives (e.g., living wage, repairability). Think of these as ‘mini constitutions’ for this context."
+  },
+  impacts: {
+    title:"Predicted Impacts",
+    body:"Simple teaching-model vectors (−5…+5). Workers & Environment move right when better; Cost moves left when cheaper."
+  },
+  workers: { title:"Workers", body:"Effects on dignity, stability, safety, and bargaining power in the supply chain or workplace." },
+  environment: { title:"Environment", body:"Effects on resource use, waste, emissions, and biodiversity." },
+  cost: { title:"Consumer Cost", body:"Near-term price impact to you; sometimes higher short-run cost saves money long-run (e.g., repairability)." },
+  capabilities: {
+    title:"Capabilities",
+    body:"Basic functionings safeguarded or expanded by your chosen guardrails: Decent Work, Health & Safety, Education & Skill, Voice & Recognition, Ecological Stability."
+  },
+  memo: { title:"Memo", body:"Your public justification using three lenses: Social Contract (fairness), Capabilities (functionings), and Care (near obligations + concrete action)." },
+  social_contract: { title:"Social Contract", body:"Would this rule set be acceptable if you didn’t know your position (worker, consumer, neighbor)? Who gains/loses and why?" },
+  care: { title:"Care & Proximity", body:"What do you owe those near you (roommates, classmates, local workers) given dependence and impact? Commit to a concrete action this month." },
+  export: { title:"Export / Import", body:"No accounts. Export JSON to submit or save. Import to continue where you left off." },
+  cheat: { title:"Cheat Sheet", body:"A one-page reference with steps, grading snapshot, and rationale. Print or save as PDF." },
+  glossary: { title:"Glossary", body:"Short definitions for PRF, SPTS, OS1/OS2, IK, BROA+, Constructors, Meta-constructors, ATCF mini." },
+  PRF: { title:"PRF — Phenomenal Reference Frame", body:"Your internal model now: identity, filters, goals, expectations. Generates OS1 and constrains which OS2 procedures feel legitimate." },
+  SPTS:{ title:"SPTS — Standpoint Set", body:"Stable social/positional roles biasing default voice/standing and evidence weights (student, caregiver, worker…)." },
+  OS1: { title:"OS1 — Phenomenal Layer", body:"What feels salient and obvious now; your lived field of experience." },
+  OS2: { title:"OS2 — Procedural Layer", body:"Explicit methods you can show/test (capabilities, constructors, audits) that can also reshape OS1 over time." },
+  IK: { title:"Identity Kernel", body:"Your 2–4 non-negotiables (e.g., no exploitation, tell the truth)." },
+  BROA: { title:"BROA+", body:"Beliefs, Rules, Ontology, Authenticity—the filters shaping interpretation and action." },
+  constructor: { title:"Constructor", body:"A persistent procedure with triggers, inputs/outputs, and a review schedule." },
+  meta_constructor: { title:"Meta-Constructor", body:"A learning loop that evaluates and updates constructors on cadence (e.g., monthly rubric + change log)." },
+  ATCF: { title:"ATCF mini", body:"Mini rubric across Identity Kernel alignment (IK), Recognition (RC), Diversity Inclusion (DI), and Temporal Coherence (TC)." }
+};
+
+/* --------------------------
+   DOM HELPERS
+-------------------------- */
+const $ = s => document.querySelector(s);
+function pctToLabel(p, positiveBetter=true){
+  const clamp = Math.max(-5, Math.min(5, p));
+  if(positiveBetter){
+    if(clamp <= -3) return ["Very Poor","bad",10];
+    if(clamp == -2) return ["Poor","bad",22];
+    if(clamp == -1) return ["Weak","warn",35];
+    if(clamp == 0) return ["Neutral","",50];
+    if(clamp == 1) return ["Slight +","good",62];
+    if(clamp == 2) return ["Moderate +","good",75];
+    if(clamp >= 3) return ["Strong +","good",90];
+  }else{
+    if(clamp <= -3) return ["Much Cheaper","good",15];
+    if(clamp == -2) return ["Cheaper","good",30];
+    if(clamp == -1) return ["Slightly Cheaper","good",40];
+    if(clamp == 0) return ["No Change","",50];
+    if(clamp == 1) return ["Slightly Pricier","warn",60];
+    if(clamp == 2) return ["Pricier","warn",70];
+    if(clamp >= 3) return ["Much Pricier","bad",85];
+  }
+  return ["—","",50];
 }
 
-// Profile events
-['stage','ik','roles','oblig','aA','aB','aC','aD'].forEach(id=>{
-  byId(id).addEventListener('input', ()=>{
-    state.profile.stage = byId('stage').value;
-    state.profile.IK = byId('ik').value.split(',').map(s=>s.trim()).filter(Boolean);
-    state.profile.roles = byId('roles').value.split(',').map(s=>s.trim()).filter(Boolean);
-    state.profile.oblig = byId('oblig').value.split(',').map(s=>s.trim()).filter(Boolean);
-    state.profile.ABCD.A = +byId('aA').value; setBadge('aAVal',state.profile.ABCD.A);
-    state.profile.ABCD.B = +byId('aB').value; setBadge('aBVal',state.profile.ABCD.B);
-    state.profile.ABCD.C = +byId('aC').value; setBadge('aCVal',state.profile.ABCD.C);
-    state.profile.ABCD.D = +byId('aD').value; setBadge('aDVal',state.profile.ABCD.D);
-    updateProfileKPIs(); chipsHealth();
+/* --------------------------
+   RENDERERS
+-------------------------- */
+
+function renderContexts(){
+  const sel = $("#context");
+  sel.innerHTML = "";
+  Object.entries(CONTEXTS).forEach(([k,v])=>{
+    const o = document.createElement("option");
+    o.value = k; o.textContent = v.title;
+    sel.appendChild(o);
   });
-});
-
-function updateProfileKPIs(){
-  byId('kIK').textContent = state.profile.IK.length;
-  byId('kRoles').textContent = state.profile.roles.length;
-  const abcdAvg = ((state.profile.ABCD.A+state.profile.ABCD.B+state.profile.ABCD.C+state.profile.ABCD.D)/4).toFixed(1);
-  byId('kABCD').textContent = abcdAvg;
+  sel.value = state.contextKey;
+  $("#ctxDesc").textContent = CONTEXTS[state.contextKey].desc;
 }
 
-// Money events
-['inc','fixed','var','disc','bufPct','ethPct'].forEach(id=>{
-  byId(id).addEventListener('input', ()=>{
-    state.money.inc=+byId('inc').value||0;
-    state.money.fixed=+byId('fixed').value||0;
-    state.money.var=+byId('var').value||0;
-    state.money.disc=+byId('disc').value||0;
-    state.money.bufPct=+byId('bufPct').value||0; setBadge('bufPctVal', state.money.bufPct+'%');
-    state.money.ethPct=+byId('ethPct').value||0; setBadge('ethPctVal', state.money.ethPct+'%');
-    renderMoney();
-    chipsHealth();
+function impactChip(vec){
+  const w = vec.workers||0, e = vec.env||0, c = vec.cost||0;
+  const wL = w>0?"+":"";
+  const eL = e>0?"+":"";
+  const cL = c<0?"–": (c>0?"+":"");
+  return `workers ${wL}${w} · env ${eL}${e} · cost ${cL}${c}`;
+}
+
+function renderGuardrails(){
+  const box = $("#guardrails");
+  box.innerHTML = "";
+  const ctx = CONTEXTS[state.contextKey];
+  ctx.guardrails.forEach(g=>{
+    const wrap = document.createElement("div");
+    wrap.className = "checkbox";
+    wrap.innerHTML = `
+      <input type="checkbox" id="gr_${g.id}" ${state.selected.has(g.id)?"checked":""} aria-label="${g.label}">
+      <label for="gr_${g.id}" style="margin:0;flex:1">
+        ${g.label}
+        <span class="badge" title="${g.note}">why?</span>
+        <div class="note hint small">${g.note}</div>
+      </label>
+      <span class="chip">${impactChip(g.vec)}</span>
+    `;
+    box.appendChild(wrap);
+    wrap.querySelector("input").addEventListener("change", e=>{
+      if(e.target.checked) state.selected.add(g.id); else state.selected.delete(g.id);
+      computeImpacts(); renderImpacts(); exportState();
+    });
   });
-});
-
-function weeklyBuffer(){ return Math.round(state.money.inc * (state.money.bufPct/100)); }
-function weeklyEthics(){ return Math.round(state.money.inc * (state.money.ethPct/100)); }
-
-function forecast(){
-  const savings = weeklyBuffer()+weeklyEthics();
-  const out = state.money.fixed + state.money.var + state.money.disc + savings;
-  const net = Math.round(state.money.inc - out);
-  return {net, net14: net*2, out, savings};
 }
 
-function renderMoney(){
-  const f=forecast();
-  byId('kForecast').textContent = (f.net14>=0?'+$':'-$')+Math.abs(f.net14);
-  byId('kBuf').textContent = '$'+weeklyBuffer()+'/wk';
-  const monthlyFixed = Math.round((state.money.fixed+state.money.var)*4.3);
-  const target = monthlyFixed; // 1-month cushion baseline
-  const have = state.money.bufferNow;
-  const added = weeklyBuffer()*4.3;
-  const pct = Math.max(0, Math.min(100, Math.round( ( (have+added) / Math.max(1,target) )*100 )));
-  byId('kCush').style.width = pct+'%';
-  byId('kCushTxt').textContent = `${Math.round((have+added))} / ${target} after ~1 month`;
+function renderImpacts(){
+  const {workers, env, cost, caps} = state.metrics;
+  let [wl, wc, wp] = pctToLabel(workers,true);
+  $("#k_workers").textContent = wl;
+  $("#k_workers").className = wc ? wc : "";
+  $("#bar_workers").style.width = wp + "%";
+
+  let [el, ec, ep] = pctToLabel(env,true);
+  $("#k_env").textContent = el;
+  $("#k_env").className = ec ? ec : "";
+  $("#bar_env").style.width = ep + "%";
+
+  let [cl, cc, cp] = pctToLabel(cost,false);
+  $("#k_cost").textContent = cl;
+  $("#k_cost").className = cc ? cc : "";
+  $("#bar_cost").style.width = cp + "%";
+
+  const cbox = document.getElementById("caps");
+  cbox.innerHTML = "";
+  CAP_LIST.forEach(cap=>{
+    const v = (caps[cap]||0);
+    const cls = v>0?"good":(v<0?"bad":"");
+    const sign = v>0?"+":(v<0?"–":"±");
+    const pill = document.createElement("div");
+    pill.className = "pill "+cls;
+    pill.textContent = `${cap}: ${sign}${Math.abs(v)}`;
+    cbox.appendChild(pill);
+  });
 }
 
-// Purchase Screen
-byId('btnScreen').addEventListener('click', ()=>{
-  const budget=+byId('pBudget').value||0, urg=+byId('pUrg').value||0;
-  const sNew=+byId('optNew').value, sUsed=+byId('optUsed').value, sRep=+byId('optRepair').value, sLocal=+byId('optLocal').value;
-  // 3-Track blend: Text/Data(New), Empirical(Repairability/Used), Lived(Local + Urgency)
-  const T = sNew;
-  const E = Math.max(sUsed,sRep);
-  const L = Math.min(3, sLocal + Math.floor(urg/2)); // urgency nudges lived weight
-  const newScore = (T + Math.max(0,2-urg)) / 2;
-  const usedScore = (E + L)/2;
-  const repairScore = (sRep + L)/2;
-  const best = [['Buy New',newScore],['Buy Used/Refurb',usedScore],['Repair',repairScore]].sort((a,b)=>b[1]-a[1])[0];
-  const warnBudget = (budget < 50 && best[0]!=='Repair');
-  const out = [
-    `Tracks — Text/Data:${T} Empirical:${E} Lived:${L}`,
-    `Scores — New:${newScore.toFixed(2)} Used:${usedScore.toFixed(2)} Repair:${repairScore.toFixed(2)}`,
-    `Recommendation: ${best[0]} ${warnBudget?'(⚠️ check budget)': ''}`,
-    `Rule: favor functionally-equivalent lower-waste option unless safety/function would drop below acceptable.`
-  ].join('\n');
-  byId('screenOut').textContent = out;
-});
+/* --------------------------
+   LOGIC
+-------------------------- */
 
-byId('btnCoolOff').addEventListener('click', ()=>{
-  const urg=+byId('pUrg').value||0;
-  const applies = urg<3; // do not apply when urgent=3
-  const msg = applies? 'Apply 24-hour cool-off: add to list, revisit tomorrow with same criteria.' : 'Urgency=3 → cool-off bypassed (safety/critical function). Log exception.';
-  byId('screenOut').textContent = (byId('screenOut').textContent? byId('screenOut').textContent+'\n' : '') + msg;
-});
+function computeImpacts(){
+  const ctx = CONTEXTS[state.contextKey];
+  let w = ctx.baseline.workers||0;
+  let e = ctx.baseline.env||0;
+  let c = ctx.baseline.cost||0;
+  const caps = {};
+  ctx.guardrails.forEach(g=>{
+    if(state.selected.has(g.id)){
+      w += (g.vec.workers||0);
+      e += (g.vec.env||0);
+      c += (g.vec.cost||0);
+      const m = g.caps||{};
+      Object.entries(m).forEach(([k,val])=>{
+        caps[k] = (caps[k]||0) + val;
+      });
+    }
+  });
+  state.metrics = { workers: clamp5(w), env: clamp5(e), cost: clamp5(c), caps };
+}
+function clamp5(n){ return Math.max(-5, Math.min(5, Math.round(n))); }
 
-// Pipeline
-byId('btnNextAction').addEventListener('click', ()=>{
-  const name=byId('skName').value||'Skill';
-  const hrs=+byId('skHrs').value||0, weeks=+byId('skWeeks').value||1;
-  const ms=byId('skMs').value.split('\n').map(s=>s.trim()).filter(Boolean);
-  state.pipeline={name,hrs,weeks,milestones:ms,done:state.pipeline.done||[]};
-  const remaining = ms.filter(m=>!state.pipeline.done.includes(m));
-  const next = remaining[0] || 'Define a concrete milestone.';
-  const note = `Next action: block ${hrs}h this week for "${name}". Focus on: ${next}`;
-  byId('skOut').textContent = note;
-});
+/* --------------------------
+   MEMO TEMPLATE & EXPORT
+-------------------------- */
 
-byId('btnMarkMilestone').addEventListener('click', ()=>{
-  const ms=state.pipeline.milestones||[];
-  const remaining = ms.filter(m=>!state.pipeline.done?.includes(m));
-  if(!remaining.length){ byId('skOut').textContent = 'All milestones done 🎉'; return; }
-  const done = remaining[0];
-  state.pipeline.done = [...(state.pipeline.done||[]), done];
-  byId('skOut').textContent = `Marked done: ${done}\nRemaining: ${ms.filter(m=>!state.pipeline.done.includes(m)).length}`;
-});
-
-// ATCF & Q
-byId('btnAudit').addEventListener('click', ()=>{
-  state.audit.IK=+byId('mIK').value; state.audit.RC=+byId('mRC').value; state.audit.DI=+byId('mDI').value; state.audit.TC=+byId('mTC').value;
-  const w=stageWeights[state.profile.stage]||stageWeights['Young Adult'];
-  const q = (state.audit.IK/100)*w.IK + (state.audit.RC/100)*w.RC + (state.audit.DI/100)*w.DI + (state.audit.TC/100)*w.TC;
-  state.audit.Q = Math.round(q*100)/100;
-  let read='Developing'; if(q>=0.8) read='Strong & Coherent'; else if(q>=0.65) read='Solidifying'; else if(q>=0.5) read='Emerging';
-  state.audit.Qread=read;
-  byId('kQ').textContent = state.audit.Q.toFixed(2);
-  byId('kQRead').textContent = read;
-});
-
-byId('btnLogExc').addEventListener('click', ()=>{ byId('excTxt').focus(); });
-
-// Change Log
-function renderLog(){
-  const el=byId('logList');
-  if(!state.log.length){ el.textContent='No entries yet.'; return; }
-  el.innerHTML='<table><thead><tr><th>Date</th><th>Entry</th></tr></thead><tbody>'+state.log.map(x=>`<tr><td>${x.date}</td><td>${x.text}</td></tr>`).join('')+'</tbody></table>';
+function fillTemplate(){
+  const ctx = CONTEXTS[state.contextKey].title;
+  const gs = CONTEXTS[state.contextKey].guardrails.filter(g=>state.selected.has(g.id)).map(g=>g.label);
+  const [wL] = pctToLabel(state.metrics.workers,true);
+  const [eL] = pctToLabel(state.metrics.env,true);
+  const [cL] = pctToLabel(state.metrics.cost,false);
+  const tops = Object.entries(state.metrics.caps).sort((a,b)=>b[1]-a[1]).slice(0,2).map(x=>x[0]);
+  document.getElementById("memo_sc").value = `Context: ${ctx}.
+Guardrails I’m proposing: ${gs.join(", ")||"(none)"}.
+Social contract: Under these rules, benefits go to [who?] and costs to [who?]. Would I accept these terms not knowing my position? I argue yes/no because…`;
+  document.getElementById("memo_cap").value = `Capabilities most improved: ${tops.join(", ")||"(none)"}.
+Risks that remain: [name them].
+Mitigation: [brief plan].`;
+  document.getElementById("memo_care").value = `Care & proximity: People near me affected (roommates/classmates/local workers) are… so I owe….
+Practical action this month: I will [buy/avoid/support/inform] accordingly.`;
 }
 
-byId('btnAddExc').addEventListener('click', ()=>{
-  const t=byId('excTxt').value.trim(); if(!t) return;
-  state.log.unshift({id:id(),date:todayISO(),text:t}); byId('excTxt').value='';
-  renderLog();
-});
-byId('btnClearLog').addEventListener('click', ()=>{
-  if(confirm('Clear all log entries?')){ state.log=[]; renderLog(); }
-});
-
-// Export / Import
-byId('btnExport').addEventListener('click', ()=>{
-  const blob=new Blob([JSON.stringify(state,null,2)],{type:'application/json'});
-  const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=`solvency-stewardship_${todayISO()}.json`; a.click();
-  setTimeout(()=>URL.revokeObjectURL(a.href),500);
-});
-
-byId('importFile').addEventListener('change', (e)=>{
-  const f=e.target.files?.[0]; if(!f) return;
-  const reader=new FileReader();
-  reader.onload=evt=>{
-    try{
-      const obj=JSON.parse(evt.target.result);
-      // shallow-safe load
-      if(obj.profile) state.profile=Object.assign(state.profile,obj.profile);
-      if(obj.money) state.money=Object.assign(state.money,obj.money);
-      if(obj.pipeline) state.pipeline=Object.assign(state.pipeline,obj.pipeline);
-      if(obj.audit) state.audit=Object.assign(state.audit,obj.audit);
-      if(Array.isArray(obj.log)) state.log=obj.log;
-      hydrateUI();
-    }catch(err){ alert('Import failed: '+err.message); }
+function exportState(){
+  const ctx = CONTEXTS[state.contextKey];
+  const out = {
+    app: "system-harms-lab",
+    version: 2,
+    context: { key: state.contextKey, title: ctx.title },
+    selected_guardrails: Array.from(state.selected),
+    metrics: state.metrics,
+    memo: {
+      social_contract: document.getElementById("memo_sc").value.trim(),
+      capabilities: document.getElementById("memo_cap").value.trim(),
+      care: document.getElementById("memo_care").value.trim()
+    },
+    timestamp: new Date().toISOString()
   };
-  reader.readAsText(f);
-});
-
-// Demos
-byId('btnDemoYA').addEventListener('click', ()=>{
-  Object.assign(state,{
-    profile:{stage:"Young Adult",IK:["Keep promises","Pay fairly","Reduce harm"],roles:["student","roommate","PT worker"],oblig:["rent","tuition","care"],ABCD:{A:2,B:2,C:2,D:2}},
-    money:{inc:520,fixed:270,var:130,disc:50,bufPct:6,ethPct:3,bufferNow:180},
-    pipeline:{name:"Help-desk cert",hrs:4,weeks:8,milestones:["Module 1","Module 2","Portfolio sample","Mock interview"],done:[]},
-    audit:{IK:72,RC:66,DI:62,TC:78,Q:null,Qread:""},
-    log:[]
-  });
-  hydrateUI();
-});
-byId('btnDemoWP').addEventListener('click', ()=>{
-  Object.assign(state,{
-    profile:{stage:"Adult",IK:["Care for dependents","Honest dealing","Sustainability"],roles:["parent","shift lead"],oblig:["rent","childcare","debt"],ABCD:{A:2,B:2,C:3,D:2}},
-    money:{inc:980,fixed:520,var:220,disc:80,bufPct:8,ethPct:2,bufferNow:600},
-    pipeline:{name:"CNA → LPN path",hrs:5,weeks:10,milestones:["CNA renewal","Pharm basics","Clinic shadow","Application"],done:[]},
-    audit:{IK:78,RC:70,DI:68,TC:80,Q:null,Qread:""},
-    log:[{id:id(),date:todayISO(),text:"Skipped cool-off for child’s inhaler → safety exemption logged."}]
-  });
-  hydrateUI();
-});
-byId('btnReset').addEventListener('click', ()=>{ location.reload(); });
-
-// Hydrate UI from state
-function hydrateUI(){
-  byId('stage').value=state.profile.stage;
-  byId('ik').value=state.profile.IK.join(', ');
-  byId('roles').value=state.profile.roles.join(', ');
-  byId('oblig').value=state.profile.oblig.join(', ');
-  byId('aA').value=state.profile.ABCD.A; setBadge('aAVal',state.profile.ABCD.A);
-  byId('aB').value=state.profile.ABCD.B; setBadge('aBVal',state.profile.ABCD.B);
-  byId('aC').value=state.profile.ABCD.C; setBadge('aCVal',state.profile.ABCD.C);
-  byId('aD').value=state.profile.ABCD.D; setBadge('aDVal',state.profile.ABCD.D);
-
-  byId('inc').value=state.money.inc; byId('fixed').value=state.money.fixed; byId('var').value=state.money.var; byId('disc').value=state.money.disc;
-  byId('bufPct').value=state.money.bufPct; setBadge('bufPctVal',state.money.bufPct+'%');
-  byId('ethPct').value=state.money.ethPct; setBadge('ethPctVal',state.money.ethPct+'%');
-
-  byId('skName').value=state.pipeline.name||''; byId('skHrs').value=state.pipeline.hrs||0; byId('skWeeks').value=state.pipeline.weeks||1;
-  byId('skMs').value=(state.pipeline.milestones||[]).join('\n'); byId('skOut').textContent='';
-
-  byId('mIK').value=state.audit.IK; byId('mRC').value=state.audit.RC; byId('mDI').value=state.audit.DI; byId('mTC').value=state.audit.TC;
-  byId('kQ').textContent = state.audit.Q? state.audit.Q.toFixed(2): '—';
-  byId('kQRead').textContent = state.audit.Qread || '—';
-
-  updateProfileKPIs();
-  renderMoney();
-  renderLog();
-  chipsHealth();
+  document.getElementById("out").value = JSON.stringify(out, null, 2);
+  document.getElementById("dl").href = "data:application/json;charset=utf-8," + encodeURIComponent(document.getElementById("out").value);
 }
 
-// Init
-hydrateUI();
+function importState(){
+  try{
+    const obj = JSON.parse(document.getElementById("inp").value);
+    if(obj.app !== "system-harms-lab") throw new Error("Not a System Harms Lab file.");
+    state.contextKey = obj.context?.key || state.contextKey;
+    state.selected = new Set(obj.selected_guardrails || []);
+    document.getElementById("memo_sc").value = obj.memo?.social_contract || "";
+    document.getElementById("memo_cap").value = obj.memo?.capabilities || "";
+    document.getElementById("memo_care").value = obj.memo?.care || "";
+    renderContexts(); renderGuardrails(); computeImpacts(); renderImpacts(); exportState();
+    alert("Loaded.");
+  }catch(e){
+    alert("Invalid JSON: " + e.message);
+  }
+}
+
+function resetAll(){
+  state.selected = new Set();
+  document.getElementById("memo_sc").value = document.getElementById("memo_cap").value = document.getElementById("memo_care").value = "";
+  renderContexts(); renderGuardrails(); computeImpacts(); renderImpacts(); exportState();
+}
+
+function syncOut(){ exportState(); }
+
+/* --------------------------
+   PRESETS & WIRING
+-------------------------- */
+
+function applyPreset(val){
+  const ctx = CONTEXTS[state.contextKey];
+  const all = ctx.guardrails.map(g=>g.id);
+  state.selected = new Set();
+  if(val==="minimal"){
+    if(state.contextKey==="electronics") state.selected.add("ewaste_takeback");
+    if(state.contextKey==="apparel") state.selected.add("supply_chain");
+    if(state.contextKey==="gig") state.selected.add("safety_insurance");
+    if(state.contextKey==="housing") state.selected.add("safety_inspect");
+    if(state.contextKey==="coffee") state.selected.add("transparent_premium");
+  }else if(val==="robust"){
+    all.forEach(id=>state.selected.add(id));
+  }
+  renderGuardrails(); computeImpacts(); renderImpacts(); exportState();
+}
+
+/* --------------------------
+   TOOLTIP (POPOVER)
+-------------------------- */
+
+let tipNode, tipShown = false, tipHideTimer = null;
+
+function showTip(el){
+  clearTimeout(tipHideTimer);
+  const key = el.getAttribute("data-key");
+  const data = GLOSSARY[key];
+  if(!data) return;
+  tipNode = tipNode || document.getElementById("tooltip");
+  tipNode.innerHTML = `<h4>${data.title}</h4><p>${data.body}</p>`;
+  tipNode.style.display = "block";
+  tipNode.setAttribute("aria-hidden","false");
+  // position
+  const r = el.getBoundingClientRect();
+  const pad = 8;
+  let top = r.bottom + pad + window.scrollY;
+  let left = r.left + window.scrollX;
+  // keep on-screen
+  const maxLeft = window.scrollX + document.documentElement.clientWidth - tipNode.offsetWidth - 10;
+  left = Math.min(left, maxLeft);
+  tipNode.style.top = top + "px";
+  tipNode.style.left = left + "px";
+  tipShown = true;
+}
+function hideTipSoon(){
+  clearTimeout(tipHideTimer);
+  tipHideTimer = setTimeout(()=>{
+    if(tipNode){
+      tipNode.style.display = "none";
+      tipNode.setAttribute("aria-hidden","true");
+      tipShown = false;
+    }
+  }, 120);
+}
+function wireTooltips(){
+  document.querySelectorAll(".info").forEach(el=>{
+    el.addEventListener("mouseenter", ()=> showTip(el));
+    el.addEventListener("mouseleave", hideTipSoon);
+    el.addEventListener("focus", ()=> showTip(el));
+    el.addEventListener("blur", hideTipSoon);
+    el.addEventListener("click", (e)=>{ // toggle on click for touch users
+      if(tipShown) hideTipSoon(); else showTip(el);
+      e.stopPropagation();
+    });
+  });
+  document.addEventListener("click", (e)=>{
+    if(tipNode && !tipNode.contains(e.target) && !e.target.classList.contains("info")) hideTipSoon();
+  });
+}
+
+/* --------------------------
+   CHEAT SHEET PDF EXPORT
+-------------------------- */
+
+function openCheatPDF(){
+  const content = document.getElementById("cheatSheetPage").outerHTML;
+  const css = `
+    <style>
+      body{margin:0;padding:16px;font:14px/1.45 system-ui,Segoe UI,Roboto,Inter,Arial,sans-serif;color:#0f172a;background:#fff}
+      h2{margin:0 0 .25rem 0;font-size:1.35rem}
+      h3{margin:.75rem 0 .35rem;color:#374151}
+      .small{font-size:.9rem}
+      .card{border:1px solid #e5e7eb;border-radius:12px;padding:10px}
+      ul{padding-left:18px;margin:.2rem 0}
+      ol{padding-left:18px;margin:.2rem 0}
+      .two-col{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+      @media print { .two-col{grid-template-columns:1fr 1fr} }
+      @page { margin: 14mm; }
+    </style>
+  `;
+  const w = window.open("", "_blank");
+  w.document.write(`<!doctype html><html><head><meta charset="utf-8"><title>Cheat Sheet PDF</title>${css}</head><body>${content}</body></html>`);
+  w.document.close();
+  // Give the browser a tick to layout before printing
+  w.onload = ()=> { w.focus(); w.print(); };
+}
+
+/* --------------------------
+   INIT
+-------------------------- */
+
+function wire(){
+  renderContexts();
+  renderGuardrails();
+  computeImpacts();
+  renderImpacts();
+  exportState();
+
+  document.getElementById("context").addEventListener("change", e=>{
+    state.contextKey = e.target.value;
+    document.getElementById("ctxDesc").textContent = CONTEXTS[state.contextKey].desc;
+    state.selected = new Set();
+    document.getElementById("preset").value="custom";
+    renderGuardrails(); computeImpacts(); renderImpacts(); syncOut();
+  });
+
+  document.getElementById("preset").addEventListener("change", e=> applyPreset(e.target.value));
+  document.getElementById("clearAll").addEventListener("click", ()=>{ state.selected=new Set(); renderGuardrails(); computeImpacts(); renderImpacts(); syncOut(); });
+  document.getElementById("selectAll").addEventListener("click", ()=>{
+    const ctx = CONTEXTS[state.contextKey];
+    state.selected=new Set(ctx.guardrails.map(g=>g.id));
+    renderGuardrails(); computeImpacts(); renderImpacts(); syncOut();
+  });
+
+  document.getElementById("fillTemplate").addEventListener("click", fillTemplate);
+  document.getElementById("copyBtn").addEventListener("click", ()=> navigator.clipboard.writeText(document.getElementById("out").value));
+  document.getElementById("loadBtn").addEventListener("click", importState);
+  document.getElementById("resetBtn").addEventListener("click", resetAll);
+
+  ["memo_sc","memo_cap","memo_care"].forEach(id=> document.getElementById(id).addEventListener("input", syncOut));
+
+  // Cheat sheet: print + PDF
+  document.getElementById("printCheatBtn").addEventListener("click", ()=> window.print());
+  document.getElementById("pdfCheatBtn").addEventListener("click", openCheatPDF);
+
+  // Tooltips
+  wireTooltips();
+}
+
+wire();
 </script>
 </body>
 </html>
